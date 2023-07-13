@@ -13,7 +13,7 @@ export class AppModule {
   constructor(private injector: Injector) {}
   ngDoBootstrap() {
     customElements.define(
-      'lib-components',
+      'lib-my-component',
       createCustomElement(MyComponentComponent, {
         injector: this.injector,
       })
