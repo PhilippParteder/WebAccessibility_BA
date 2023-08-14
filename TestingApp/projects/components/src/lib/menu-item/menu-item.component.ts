@@ -3,7 +3,6 @@ import {
   Component,
   ElementRef,
   Input,
-  AfterViewChecked,
   Renderer2,
   ViewChild,
 } from '@angular/core';
@@ -25,7 +24,6 @@ import {
 export class MenuItemComponent implements AfterViewInit {
   @Input() href!: string;
   @ViewChild('submenu') submenu!: ElementRef<HTMLElement>;
-  @ViewChild('link') link!: ElementRef<HTMLElement>;
 
   constructor(private renderer: Renderer2) {}
 
