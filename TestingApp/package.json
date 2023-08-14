@@ -7,9 +7,11 @@
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
+    "dev": "npm run build:components && ng serve",
     "build:elements": "ng build --project elements --output-hashing none && npm run pack:elements && cp projects/elements/package.json dist/elements",
     "pack:elements": "cat ./dist/elements/{runtime,polyfills,main}.js > dist/elements/elements.js && ls -lah dist/elements/elements.js",
-    "build:components": "ng build --project components"
+    "build:components": "ng build --project components",
+    "build:components-watch": "ng build --project components --watch"
   },
   "private": true,
   "dependencies": {
