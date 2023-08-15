@@ -1,16 +1,18 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input } from '@angular/core';
 
 @Component({
   selector: 'lib-sub-menu',
   template: `
     <ul aria-label="Menu">
-      <ng-content></ng-content>
+      <ng-container *ngFor="let subMenuItem of subMenuItems; let i = index">
+        <lib-menu-item *ngIf="i !== 0" href="#">
+          {{ subMenuItem + i }}
+        </lib-menu-item>
+      </ng-container>
     </ul>
   `,
   styleUrls: ['./sub-menu.component.css'],
 })
-export class SubMenuComponent implements OnInit {
-  constructor() {}
-
-  ngOnInit(): void {}
+export class SubMenuComponent {
+  @Input() subMenuItems!: Array<string>;
 }

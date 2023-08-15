@@ -41,6 +41,4 @@ export class MenuItemComponent implements AfterViewInit {
   ngAfterViewInit() {
     this.renderer.setStyle(this.submenu.nativeElement, 'display', 'none');
   }
-
-  ngOnInit(): void {}
 }
