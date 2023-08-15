@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 
 @Component({
   selector: 'lib-menu',
@@ -11,8 +11,8 @@ import { Component, OnInit } from '@angular/core';
   `,
   styleUrls: ['./menu.component.css'],
 })
-export class MenuComponent implements OnInit {
-  constructor() {}
+export class MenuComponent {
+  @Input() menuitems!: Array<String | Array<String>>;
 
-  ngOnInit() {}
+  constructor() {}
 }

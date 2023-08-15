@@ -2,17 +2,24 @@ import { Component } from '@angular/core';
 
 @Component({
   selector: 'app-root',
-  templateUrl: './app.component.html',
+  template: `
+    <h1>Testing Angular Components</h1>
+    <lib-menu>
+      <lib-menu-item href="#">Item1</lib-menu-item>
+      <lib-menu-item href="#">Item2</lib-menu-item>
+      <lib-menu-item href="#">
+        Item3
+        <lib-sub-menu submenu>
+          <lib-menu-item href="#">Test1</lib-menu-item>
+          <lib-menu-item href="#">Test2</lib-menu-item>
+          <lib-menu-item href="#">Test3</lib-menu-item>
+        </lib-sub-menu>
+      </lib-menu-item>
+      <lib-menu-item href="#">Item4</lib-menu-item>
+    </lib-menu>
+  `,
   styleUrls: ['./app.component.css'],
 })
 export class AppComponent {
   title = 'TestingApp';
-  headers = ['Band', 'Singer', 'Inception', 'Label'];
-  rows = [
-    ['Napalm Death', 'Barney Greenway', '1981', 'Century Media'],
-    ['Carcass', 'Jeff Walker', '1985', 'Earache'],
-    ['Extreme Noise Terror', 'Dean Jones', '1985', 'Candlelight'],
-    ['Discordance Axis', 'Jon Chang', '1992', 'Hydrahead'],
-  ];
-  fruits = ['apple', 'kiwi', 'pear', 'strawberry'];
 }
