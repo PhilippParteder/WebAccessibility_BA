@@ -7,28 +7,21 @@ import { Component, Input, OnInit } from '@angular/core';
       <ul>
         <ng-container *ngFor="let menuItem of menuItems">
           <lib-menu-item
+            *ngIf="isString(menuItem)"
             [title]="toString(menuItem)"
             [href]="toString(menuItem)"
-            *ngIf="isString(menuItem)"
           >
           </lib-menu-item>
-          <ng-container *ngIf="!isString(menuItem)">
-            <ng-container
-              *ngFor="let subItem of toArray(menuItem); let i = index"
-            >
-              <ng-container *ngIf="i === 0">
-                <lib-menu-item
-                  [title]="toString(subItem)"
-                  [href]="toString(subItem)"
-                >
-                  <lib-sub-menu
-                    submenu
-                    [subMenuItems]="toArray(menuItem)"
-                  ></lib-sub-menu
-                ></lib-menu-item>
-              </ng-container>
-            </ng-container>
-          </ng-container>
+          <lib-menu-item
+            *ngIf="!isString(menuItem)"
+            [title]="menuItem[0]"
+            [href]="menuItem[0]"
+          >
+            <lib-sub-menu
+              submenu
+              [subMenuItems]="toArray(menuItem)"
+            ></lib-sub-menu
+          ></lib-menu-item>
         </ng-container>
       </ul>
     </nav>
