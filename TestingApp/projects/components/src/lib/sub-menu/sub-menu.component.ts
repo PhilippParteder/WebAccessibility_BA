@@ -3,7 +3,7 @@ import { Component, Input } from '@angular/core';
 @Component({
   selector: 'lib-sub-menu',
   template: `
-    <ul aria-label="Menu">
+    <ul aria-label="Submenu">
       <ng-container *ngFor="let subMenuItem of subMenuItems; let i = index">
         <lib-menu-item
           *ngIf="i !== 0"
