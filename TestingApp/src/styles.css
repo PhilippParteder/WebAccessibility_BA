@@ -4,3 +4,9 @@
   margin: 0;
   padding: 0;
 }
+i {
+  font-family: FontAwesome;
+}
+.visually-hidden {
+  display: none;
+}

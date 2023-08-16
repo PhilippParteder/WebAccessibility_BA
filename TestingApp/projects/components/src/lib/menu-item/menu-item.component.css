@@ -1,8 +1,29 @@
-a {
-  text-decoration: none;
-  color: #ffffff;
+.link {
   padding: 4px 8px;
 }
-a:focus {
+.link > a {
+  color: #ffffff;
+  text-decoration: none;
+}
+.link:focus,
+.link:hover {
   text-decoration: underline;
+}
+button {
+  all: unset;
+  cursor: pointer;
+  padding: 0px 4px 0px 0px;
+}
+button:focus {
+  outline: orange auto 5px;
+}
+.link > i {
+  font-size: 10pt;
+  font-weight: normal;
+  font-style: normal;
+  margin: 0px 0px 0px 2px;
+  text-decoration: none;
+}
+.open .submenu {
+  display: block !important;
 }

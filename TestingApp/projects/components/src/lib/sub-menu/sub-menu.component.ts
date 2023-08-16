@@ -5,8 +5,11 @@ import { Component, Input } from '@angular/core';
   template: `
     <ul aria-label="Menu">
       <ng-container *ngFor="let subMenuItem of subMenuItems; let i = index">
-        <lib-menu-item *ngIf="i !== 0" href="#">
-          {{ subMenuItem + i }}
+        <lib-menu-item
+          *ngIf="i !== 0"
+          [href]="subMenuItems[0] + '/' + subMenuItem"
+          [title]="subMenuItem"
+        >
         </lib-menu-item>
       </ng-container>
     </ul>

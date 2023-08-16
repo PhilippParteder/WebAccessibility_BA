@@ -10,11 +10,17 @@ import {
 @Component({
   selector: 'lib-menu-item',
   template: `
-    <li>
-      <a href="{{ href }}" (click)="toggleSubMenu()" #link>
-        <ng-content></ng-content>
-      </a>
-      <div #submenu aria-expanded="false">
+    <li #li (mouseover)="openSubmenu()" (mouseout)="closeSubmenu()">
+      <span class="link">
+        <a href="{{ href }}" aria-expanded="false" #link>
+          {{ title }}
+        </a>
+        <button (click)="toggleSubMenu($event)" *ngIf="this.hasSubmenu">
+          <span class="visually-hidden"> show submenu for "{{ title }}" </span>
+          <i class="fa-regular fa-chevron-down"></i>
+        </button>
+      </span>
+      <div class="submenu" #submenu>
         <ng-content select="[submenu]"></ng-content>
       </div>
     </li>
@@ -22,23 +28,44 @@ import {
   styleUrls: ['./menu-item.component.css'],
 })
 export class MenuItemComponent implements AfterViewInit {
+  @Input() title!: string;
   @Input() href!: string;
   @ViewChild('submenu') submenu!: ElementRef<HTMLElement>;
+  @ViewChild('link') link!: ElementRef<HTMLElement>;
+  @ViewChild('li') li!: ElementRef<HTMLElement>;
+  hasSubmenu!: boolean;
+  timer!: ReturnType<typeof setTimeout>;
 
   constructor(private renderer: Renderer2) {}
 
-  toggleSubMenu(): void {
-    if (!this.submenu.nativeElement.childNodes.length) return;
-    if (this.submenu.nativeElement.getAttribute('aria-expanded') == 'true') {
+  toggleSubMenu(event: Event): void {
+    if (!this.hasSubmenu) return;
+    console.log(event);
+    event.preventDefault();
+    if (this.link.nativeElement.getAttribute('aria-expanded') == 'true') {
       this.renderer.setStyle(this.submenu.nativeElement, 'display', 'none');
-      this.submenu.nativeElement.setAttribute('aria-expanded', 'false');
+      this.link.nativeElement.setAttribute('aria-expanded', 'false');
     } else {
       this.renderer.setStyle(this.submenu.nativeElement, 'display', 'block');
-      this.submenu.nativeElement.setAttribute('aria-expanded', 'true');
+      this.link.nativeElement.setAttribute('aria-expanded', 'true');
     }
   }
 
   ngAfterViewInit() {
+    this.hasSubmenu = Boolean(this.submenu.nativeElement.childNodes.length);
     this.renderer.setStyle(this.submenu.nativeElement, 'display', 'none');
+    if (!this.hasSubmenu) return;
+    this.renderer.addClass(this.link.nativeElement, 'has-submenu-icon');
+    this.renderer.addClass(this.li.nativeElement, 'has-submenu');
+  }
+
+  openSubmenu() {
+    this.li.nativeElement.classList.add('open');
+    clearTimeout(this.timer);
+  }
+  closeSubmenu() {
+    this.timer = setTimeout(() => {
+      this.li.nativeElement.classList.remove('open');
+    }, 500);
   }
 }

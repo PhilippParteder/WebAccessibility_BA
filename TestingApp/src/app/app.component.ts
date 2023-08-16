@@ -10,5 +10,10 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'TestingApp';
-  menuItems = ['item', 'item', ['erstes', 'sub', 'sub', 'sub'], 'item'];
+  menuItems = [
+    'item',
+    'item2',
+    ['erstes', 'sub1', 'sub2', 'sub3'],
+    ['zweites', 'sub4', 'sub5', 'sub6'],
+  ];
 }
