@@ -17,7 +17,7 @@ import {
         </a>
         <button (click)="toggleSubMenu($event)" *ngIf="this.hasSubmenu">
           <span class="visually-hidden"> show submenu for "{{ title }}" </span>
-          <i class="fa-regular fa-chevron-down"></i>
+          <i class="fa-regular fa-angle-down"></i>
         </button>
       </span>
       <div class="submenu" #submenu>
