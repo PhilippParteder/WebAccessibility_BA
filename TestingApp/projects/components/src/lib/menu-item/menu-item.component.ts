@@ -3,6 +3,7 @@ import {
   Component,
   ElementRef,
   Input,
+  OnInit,
   Renderer2,
   ViewChild,
 } from '@angular/core';
@@ -22,7 +23,7 @@ import {
           <i class="fa-regular fa-angle-down"></i>
         </button>
       </span>
-      <div class="submenu" #submenu>
+      <div class="submenu" #submenu *ngIf="hasSubmenu">
         <ng-content select="[submenu]"></ng-content>
       </div>
     </li>
@@ -36,14 +37,20 @@ export class MenuItemComponent implements AfterViewInit {
   @ViewChild('link') link!: ElementRef<HTMLElement>;
   @ViewChild('li') li!: ElementRef<HTMLElement>;
   @ViewChild('label') label!: ElementRef<HTMLElement>;
-  hasSubmenu!: boolean;
+  @Input() hasSubmenu: boolean = false;
   timer!: ReturnType<typeof setTimeout>;
 
   constructor(private renderer: Renderer2) {}
 
-  toggleSubMenu(event: Event): void {
+  ngAfterViewInit() {
     if (!this.hasSubmenu) return;
-    console.log(event);
+    this.renderer.setStyle(this.submenu.nativeElement, 'display', 'none');
+    this.link.nativeElement.setAttribute('aria-expanded', 'false');
+    this.renderer.addClass(this.link.nativeElement, 'has-submenu-icon');
+    this.renderer.addClass(this.li.nativeElement, 'has-submenu');
+  }
+
+  toggleSubMenu(event: Event): void {
     event.preventDefault();
     if (this.link.nativeElement.getAttribute('aria-expanded') == 'true') {
       this.renderer.setStyle(this.submenu.nativeElement, 'display', 'none');
@@ -54,15 +61,6 @@ export class MenuItemComponent implements AfterViewInit {
       this.link.nativeElement.setAttribute('aria-expanded', 'true');
       this.label.nativeElement.innerHTML = `show submenu for "${this.title}"`;
     }
-  }
-
-  ngAfterViewInit() {
-    this.hasSubmenu = Boolean(this.submenu.nativeElement.childNodes.length);
-    this.renderer.setStyle(this.submenu.nativeElement, 'display', 'none');
-    if (!this.hasSubmenu) return;
-    this.link.nativeElement.setAttribute('aria-expanded', 'false');
-    this.renderer.addClass(this.link.nativeElement, 'has-submenu-icon');
-    this.renderer.addClass(this.li.nativeElement, 'has-submenu');
   }
 
   openSubmenu() {

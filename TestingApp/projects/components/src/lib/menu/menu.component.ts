@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input } from '@angular/core';
 
 @Component({
   selector: 'lib-menu',
@@ -16,6 +16,7 @@ import { Component, Input, OnInit } from '@angular/core';
             *ngIf="!isString(menuItem)"
             [title]="menuItem[0]"
             [href]="menuItem[0]"
+            [hasSubmenu]="true"
           >
             <lib-sub-menu
               submenu
@@ -28,12 +29,9 @@ import { Component, Input, OnInit } from '@angular/core';
   `,
   styleUrls: ['./menu.component.css'],
 })
-export class MenuComponent implements OnInit {
+export class MenuComponent {
   @Input() menuItems!: Array<string | Array<string>>;
 
-  ngOnInit() {
-    console.log(this.menuItems);
-  }
   isString(menuItem: string | Array<string>): boolean {
     return typeof menuItem === 'string';
   }
