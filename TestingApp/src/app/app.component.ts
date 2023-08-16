@@ -13,7 +13,7 @@ export class AppComponent {
   menuItems = [
     'item',
     'item2',
-    ['erstes', 'sub1', 'sub2', 'sub3'],
-    ['zweites', 'sub4', 'sub5', 'sub6'],
+    ['item3', 'subItem1', 'subItem2', 'subItem3'],
+    ['item4', 'subItem4', 'subItem5', 'subItem6'],
   ];
 }

@@ -4,35 +4,33 @@ import { Component, Input, OnInit } from '@angular/core';
   selector: 'lib-menu',
   template: `
     <nav aria-label="Menu">
-      <ng-container>
-        <ul>
-          <ng-container *ngFor="let menuItem of menuItems">
-            <lib-menu-item
-              [title]="toString(menuItem)"
-              [href]="toString(menuItem)"
-              *ngIf="isString(menuItem)"
+      <ul>
+        <ng-container *ngFor="let menuItem of menuItems">
+          <lib-menu-item
+            [title]="toString(menuItem)"
+            [href]="toString(menuItem)"
+            *ngIf="isString(menuItem)"
+          >
+          </lib-menu-item>
+          <ng-container *ngIf="!isString(menuItem)">
+            <ng-container
+              *ngFor="let subItem of toArray(menuItem); let i = index"
             >
-            </lib-menu-item>
-            <ng-container *ngIf="!isString(menuItem)">
-              <ng-container
-                *ngFor="let subItem of toArray(menuItem); let i = index"
-              >
-                <ng-container *ngIf="i === 0">
-                  <lib-menu-item
-                    [title]="toString(subItem)"
-                    [href]="toString(subItem)"
-                  >
-                    <lib-sub-menu
-                      submenu
-                      [subMenuItems]="toArray(menuItem)"
-                    ></lib-sub-menu
-                  ></lib-menu-item>
-                </ng-container>
+              <ng-container *ngIf="i === 0">
+                <lib-menu-item
+                  [title]="toString(subItem)"
+                  [href]="toString(subItem)"
+                >
+                  <lib-sub-menu
+                    submenu
+                    [subMenuItems]="toArray(menuItem)"
+                  ></lib-sub-menu
+                ></lib-menu-item>
               </ng-container>
             </ng-container>
           </ng-container>
-        </ul>
-      </ng-container>
+        </ng-container>
+      </ul>
     </nav>
   `,
   styleUrls: ['./menu.component.css'],
