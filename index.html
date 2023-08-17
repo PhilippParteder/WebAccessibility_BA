@@ -4,14 +4,30 @@
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>Testing WebComponents</title>
+        <link
+            href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap"
+            rel="stylesheet" />
+        <script
+            src="https://kit.fontawesome.com/32cbeea7ff.js"
+            crossorigin="anonymous"></script>
+        <link rel="stylesheet" href="/styles.css" />
         <link rel="stylesheet" href="/TestingApp/dist/elements/styles.css" />
         <script src="/TestingApp/dist/elements/elements.js"></script>
         <script type="module" src="/WebComponents/loader.js"></script>
     </head>
     <body>
         <h1>Testing Web Components (Custom Elements)</h1>
-        <lib-my-component></lib-my-component>
-        <my-boilerplate></my-boilerplate>
-        <my-table></my-table>
+
+        <my-menu></my-menu>
     </body>
+    <script>
+        const menuItems = [
+            'item',
+            'item2',
+            ['item3', 'subItem1', 'subItem2', 'subItem3'],
+            ['item4', 'subItem4', 'subItem5', 'subItem6'],
+        ];
+        const menu = document.querySelector('my-menu');
+        menu.menuItems = menuItems;
+    </script>
 </html>
