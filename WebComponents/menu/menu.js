@@ -2,7 +2,6 @@ export default class Menu extends HTMLElement {
     constructor() {
         super();
 
-        let menuItems;
         // Creates a shadow root
         this.root = this.attachShadow({ mode: 'closed' });
 
@@ -27,11 +26,8 @@ export default class Menu extends HTMLElement {
                 const menuItem = document.createElement('my-menu-item');
                 menuItem.setAttribute('title', item[0]);
                 menuItem.setAttribute('href', item[0]);
-                menuItem.setAttribute('hasSubmenu', true);
-
-                const subMenu = document.createElement('my-sub-menu');
-                subMenu.subMenuItems = item;
-                menuItem.appendChild(subMenu);
+                menuItem.hasSubmenu = true;
+                menuItem.subMenuItems = item;
                 this.root.querySelector('ul').appendChild(menuItem);
             }
         });
