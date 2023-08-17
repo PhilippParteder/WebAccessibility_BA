@@ -11,8 +11,7 @@ export default class Menu extends HTMLElement {
             <ul>
             
             </ul>
-        </nav>
-      `;
+        </nav>`;
     }
     connectedCallback() {
         this.menuItems.forEach((item) => {
@@ -32,5 +31,20 @@ export default class Menu extends HTMLElement {
             }
         });
         // console.log(this.root.querySelector('ul'));
+
+        const style = document.createElement('style');
+        style.textContent = `
+        ul {
+            display: flex;
+            flex-direction: row;
+            list-style-type: none;
+            justify-content: center;
+            background-color: #2f3542;
+            color: #ffffff;
+            padding: 32px 0;
+            margin: 0px;
+          }  
+        `;
+        this.root.append(style);
     }
 }

@@ -11,12 +11,7 @@ import {
 @Component({
   selector: 'lib-menu-item',
   template: `
-    <li
-      #li
-      class="has-submenu"
-      (mouseover)="openSubmenu()"
-      (mouseout)="closeSubmenu()"
-    >
+    <li #li (mouseover)="openSubmenu()" (mouseout)="closeSubmenu()">
       <span class="link">
         <a href="{{ href }}" #link class="has-submenu-icon">
           {{ title }}
