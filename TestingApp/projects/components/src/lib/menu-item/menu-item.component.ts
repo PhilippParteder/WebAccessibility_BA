@@ -11,9 +11,14 @@ import {
 @Component({
   selector: 'lib-menu-item',
   template: `
-    <li #li (mouseover)="openSubmenu()" (mouseout)="closeSubmenu()">
+    <li
+      #li
+      class="has-submenu"
+      (mouseover)="openSubmenu()"
+      (mouseout)="closeSubmenu()"
+    >
       <span class="link">
-        <a href="{{ href }}" #link>
+        <a href="{{ href }}" #link class="has-submenu-icon">
           {{ title }}
         </a>
         <button (click)="toggleSubMenu($event)" *ngIf="this.hasSubmenu">
@@ -46,8 +51,6 @@ export class MenuItemComponent implements AfterViewInit {
     if (!this.hasSubmenu) return;
     this.renderer.setStyle(this.submenu.nativeElement, 'display', 'none');
     this.link.nativeElement.setAttribute('aria-expanded', 'false');
-    this.renderer.addClass(this.link.nativeElement, 'has-submenu-icon');
-    this.renderer.addClass(this.li.nativeElement, 'has-submenu');
   }
 
   toggleSubMenu(event: Event): void {
@@ -67,6 +70,7 @@ export class MenuItemComponent implements AfterViewInit {
     this.li.nativeElement.classList.add('open');
     clearTimeout(this.timer);
   }
+
   closeSubmenu() {
     this.timer = setTimeout(() => {
       this.li.nativeElement.classList.remove('open');
