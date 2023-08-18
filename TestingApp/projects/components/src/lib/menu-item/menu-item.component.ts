@@ -13,7 +13,7 @@ import {
   template: `
     <li #li (mouseover)="openSubmenu()" (mouseout)="closeSubmenu()">
       <span class="link">
-        <a href="{{ href }}" #link class="has-submenu-icon">
+        <a href="{{ href }}" #link>
           {{ title }}
         </a>
         <button (click)="toggleSubMenu($event)" *ngIf="this.hasSubmenu">

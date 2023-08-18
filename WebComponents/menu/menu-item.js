@@ -4,17 +4,18 @@ export default class MenuItem extends HTMLElement {
 
         // Creates a shadow root
         this.root = this.attachShadow({ mode: 'closed' });
-
+        let timer;
         // Render HTML
         this.root.innerHTML = `
         <li>
             <span class="link">
-                <a href="${this.href}" >
+                <a href="${this.href}" aria-expanded="false">
                     ${this.title}
                 </a>
             </span>
         </li>`;
     }
+
     connectedCallback() {
         this.root.querySelector('a').href = this.getAttribute('href');
         this.root.querySelector('a').innerHTML = this.title;
@@ -22,21 +23,45 @@ export default class MenuItem extends HTMLElement {
         if (this.hasSubmenu) {
             const subMenu = document.createElement('my-sub-menu');
             subMenu.subMenuItems = this.subMenuItems;
+            subMenu.style.display = 'none';
+            subMenu.classList.add('submenu');
             this.root.querySelector('li').appendChild(subMenu);
+
             const button = document.createElement('button');
-            button.addEventListener('click', (e) => {
-                console.log('click');
-            });
+
             const span = document.createElement('span');
             span.classList.add('visually-hidden');
             span.innerHTML = `show submenu for "${this.title}"`;
+            button.appendChild(span);
 
             const icon = document.createElement('i');
             icon.classList.add('fa-regular', 'fa-angle-down');
-
-            button.appendChild(span);
             button.appendChild(icon);
+
+            button.addEventListener('click', (event) => {
+                event.preventDefault();
+                const a = this.root.querySelector('a');
+                const label = this.root.querySelector('button > span');
+                if (a.getAttribute('aria-expanded') == 'true') {
+                    a.setAttribute('aria-expanded', 'false');
+                    label.innerHTML = `show submenu for "${this.title}"`;
+                    subMenu.style.display = 'none';
+                } else {
+                    a.setAttribute('aria-expanded', 'true');
+                    label.innerHTML = `hide submenu for "${this.title}"`;
+                    subMenu.style.display = 'block';
+                }
+            });
             this.root.querySelector('span').append(button);
+            this.root.querySelector('li').addEventListener('mouseover', () => {
+                this.root.querySelector('li').classList.add('open');
+                clearTimeout(this.timer);
+            });
+            this.root.querySelector('li').addEventListener('mouseout', () => {
+                this.timer = setTimeout(() => {
+                    this.root.querySelector('li').classList.remove('open');
+                }, 500);
+            });
         }
 
         const style = document.createElement('style');
@@ -80,5 +105,4 @@ export default class MenuItem extends HTMLElement {
         `;
         this.root.append(style);
     }
-    attributeChangedCallback() {}
 }
