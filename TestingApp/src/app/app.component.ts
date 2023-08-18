@@ -5,6 +5,12 @@ import { Component } from '@angular/core';
   template: `
     <h1>Testing Angular Components</h1>
     <lib-menu [menuItems]="menuItems"></lib-menu>
+    <lib-modal>
+      <h2 label>Confirmation</h2>
+      <p desc>Are you sure you want to do this?</p>
+      <span button1>yes</span>
+      <span button2>no</span>
+    </lib-modal>
   `,
   styleUrls: ['./app.component.css'],
 })
