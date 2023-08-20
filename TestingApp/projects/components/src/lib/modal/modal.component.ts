@@ -20,12 +20,12 @@ import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
         <button type="button" id="button1">
           <ng-content select="[button1]"></ng-content>
         </button>
-        <button type="button" id="button2" (click)="hideDialog()">
+        <button type="button" id="button2" (click)="hideModal()">
           <ng-content select="[button2]"></ng-content>
         </button>
       </div>
     </dialog>
-    <button type="button" (click)="openDialog()">open</button>
+    <button type="button" (click)="openModal()">open</button>
   `,
   styleUrls: ['./modal.component.css'],
 })
@@ -35,13 +35,13 @@ export class ModalComponent implements OnInit {
   constructor() {}
 
   ngOnInit(): void {
-    this.openDialog;
+    this.openModal;
   }
 
-  openDialog() {
-    this.modal.nativeElement.show();
+  openModal() {
+    this.modal.nativeElement.showModal();
   }
-  hideDialog() {
+  hideModal() {
     this.modal.nativeElement.close();
   }
 }
