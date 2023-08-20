@@ -29,14 +29,10 @@ import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
   `,
   styleUrls: ['./modal.component.css'],
 })
-export class ModalComponent implements OnInit {
+export class ModalComponent {
   @ViewChild('modal') modal!: ElementRef<HTMLDialogElement>;
 
   constructor() {}
-
-  ngOnInit(): void {
-    this.openModal;
-  }
 
   openModal() {
     this.modal.nativeElement.showModal();

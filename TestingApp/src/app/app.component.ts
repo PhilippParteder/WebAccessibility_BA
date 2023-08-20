@@ -8,8 +8,8 @@ import { Component } from '@angular/core';
     <lib-modal>
       <h2 label>Confirmation</h2>
       <p desc>Are you sure you want to do this?</p>
-      <span button1>yes</span>
-      <span button2>no</span>
+      <span button1>cancel</span>
+      <span button2>confirm</span>
     </lib-modal>
   `,
   styleUrls: ['./app.component.css'],
