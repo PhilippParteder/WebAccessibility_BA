@@ -1,11 +1,8 @@
 export default class MenuItem extends HTMLElement {
     constructor() {
         super();
-
-        // Creates a shadow root
         this.root = this.attachShadow({ mode: 'closed' });
         let timer;
-        // Render HTML
         this.root.innerHTML = `
         <li>
             <span class="link">

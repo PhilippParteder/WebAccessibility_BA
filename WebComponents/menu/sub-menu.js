@@ -1,11 +1,7 @@
 export default class SubMenu extends HTMLElement {
     constructor() {
         super();
-
-        // Creates a shadow root
         this.root = this.attachShadow({ mode: 'closed' });
-
-        // Render HTML
         this.root.innerHTML = `
         <ul aria-label="Submenu"></ul>
       `;
