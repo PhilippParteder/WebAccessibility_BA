@@ -17,6 +17,8 @@
     <body>
         <h1>Testing Web Components (Custom Elements)</h1>
         <my-menu></my-menu>
+        <my-modal></my-modal>
+        <button id="modalButton">show Modal</button>
     </body>
     <script>
         const menuItems = [
@@ -27,5 +29,11 @@
         ];
         const menu = document.querySelector('my-menu');
         menu.menuItems = menuItems;
+
+        const modal = document.querySelector('my-modal');
+        modal.setAttribute('showing', false);
+        document.querySelector('#modalButton').addEventListener('click', () => {
+            modal.setAttribute('showing', true);
+        });
     </script>
 </html>
