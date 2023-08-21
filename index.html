@@ -15,10 +15,15 @@
     </head>
 
     <body>
-        <h1>Testing Web Components (Custom Elements)</h1>
         <my-menu></my-menu>
-        <my-modal></my-modal>
-        <button id="modalButton">show Modal</button>
+        <h1>Testing Web Components (Custom Elements)</h1>
+        <my-modal>
+            <h2 slot="dialog_label">Confirmation</h2>
+            <p slot="dialog_desc">Are you sure you want to do this?</p>
+            <span slot="cancel_button">cancel</span>
+            <span slot="confirm_button">confirm</span>
+        </my-modal>
+        <button id="modalButton">open Modal</button>
     </body>
     <script>
         const menuItems = [
