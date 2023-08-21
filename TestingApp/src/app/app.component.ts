@@ -5,6 +5,7 @@ import { Component } from '@angular/core';
   template: `
     <lib-menu [menuItems]="menuItems"></lib-menu>
     <h1>Testing Angular Components</h1>
+
     <lib-modal [showing]="this.showingModal" (close)="closeHandler($event)">
       <h2 label>Confirmation</h2>
       <p desc>Are you sure you want to do this?</p>

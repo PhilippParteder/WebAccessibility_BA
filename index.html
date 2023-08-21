@@ -40,5 +40,14 @@
         document.querySelector('#modalButton').addEventListener('click', () => {
             modal.setAttribute('showing', true);
         });
+        modal.addEventListener('escape', (event) => {
+            console.log(event);
+        });
+        modal.addEventListener('cancel', (event) => {
+            console.log(event);
+        });
+        modal.addEventListener('confirm', (event) => {
+            console.log(event);
+        });
     </script>
 </html>

@@ -16,10 +16,10 @@ export default class Modal extends HTMLElement {
                 <slot name="dialog_desc"></slot>
             </div>
             <div class="dialog_options">
-                <button type="button" >
+                <button type="button" id="cancel_button" >
                     <slot name="cancel_button"></slot>
                 </button>
-                <button type="button">
+                <button type="button" id="confirm_button">
                     <slot name="confirm_button"></slot>
                 </button>
             </div>
@@ -29,6 +29,39 @@ export default class Modal extends HTMLElement {
         return ['showing'];
     }
     connectedCallback() {
+        this.root
+            .querySelector('dialog')
+            .addEventListener('keydown', (event) => {
+                if (event.key === 'Escape') {
+                    this.closeModal();
+                    this.root.dispatchEvent(
+                        new Event('escape', {
+                            composed: true,
+                        })
+                    );
+                }
+            });
+        this.root
+            .querySelector('#confirm_button')
+            .addEventListener('click', (event) => {
+                this.closeModal();
+                this.root.dispatchEvent(
+                    new Event('confirm', {
+                        composed: true,
+                    })
+                );
+            });
+        this.root
+            .querySelector('#cancel_button')
+            .addEventListener('click', (event) => {
+                this.closeModal();
+                this.root.dispatchEvent(
+                    new Event('cancel', {
+                        composed: true,
+                    })
+                );
+            });
+
         const style = document.createElement('style');
         style.textContent = `
         .hidden {
@@ -63,9 +96,11 @@ export default class Modal extends HTMLElement {
     }
     attributeChangedCallback(name, oldValue, newValue) {
         this.showing = newValue;
-        // console.log('this.showing = ' + this.showing);
+        this.root.querySelector('dialog').returnValue = 'escape';
         if (this.showing === 'true')
             this.root.querySelector('dialog').showModal();
-        console.log(this.root.querySelector('dialog'));
+    }
+    closeModal() {
+        this.root.querySelector('dialog').close();
     }
 }
