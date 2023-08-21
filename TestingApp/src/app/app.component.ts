@@ -6,7 +6,7 @@ import { Component } from '@angular/core';
     <lib-menu [menuItems]="menuItems"></lib-menu>
     <h1>Testing Angular Components</h1>
 
-    <lib-modal [showing]="this.showingModal" (close)="closeHandler($event)">
+    <lib-modal [showing]="this.showingModal" (emitter)="eventHandler($event)">
       <h2 label>Confirmation</h2>
       <p desc>Are you sure you want to do this?</p>
       <span cancel_button>cancel</span>
@@ -26,10 +26,8 @@ export class AppComponent {
     ['item4', 'subItem4', 'subItem5', 'subItem6'],
   ];
 
-  closeHandler(event: Event) {
+  eventHandler(event: Event) {
     this.showingModal = false;
-    const target = event.target as HTMLDialogElement;
-    const returnValue = target.returnValue;
-    console.log(returnValue);
+    console.log(event);
   }
 }

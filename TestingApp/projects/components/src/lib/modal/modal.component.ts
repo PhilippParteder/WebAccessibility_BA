@@ -18,8 +18,7 @@ import {
       aria-modal="true"
       aria-labelledby="dialog_label"
       aria-describedby="dialog_desc"
-      (close)="closeHandler($event)"
-      [returnValue]="this.returnValue"
+      (keydown)="keydownHandler($event)"
     >
       <div id="dialog_label" class="dialog_label">
         <ng-content select="[label]"></ng-content>
@@ -42,22 +41,27 @@ import {
 export class ModalComponent {
   @ViewChild('modal') modal!: ElementRef<HTMLDialogElement>;
   @Input() showing: boolean = false;
-  @Output() close = new EventEmitter();
-  returnValue: string = 'escape';
+  @Output() emitter = new EventEmitter();
 
   constructor() {}
 
   ngOnChanges(changes: SimpleChanges) {
     if (changes['showing'].firstChange) return;
     if (changes['showing'].currentValue) this.modal.nativeElement.showModal();
-    this.returnValue = 'escape';
   }
 
   closeModal(value: string) {
-    this.returnValue = value;
-    this.modal.nativeElement.close(this.returnValue);
+    this.modal.nativeElement.close();
+    if (value === 'confirm') {
+      this.emitter.emit(new Event('confirm', { composed: true }));
+    }
+    if (value === 'cancel') {
+      this.emitter.emit(new Event('cancel', { composed: true }));
+    }
   }
-  closeHandler(event: Event) {
-    this.close.emit(event);
+  keydownHandler(event: KeyboardEvent) {
+    if (event.key === 'Escape') {
+      this.emitter.emit(new Event('escape', { composed: true }));
+    }
   }
 }
