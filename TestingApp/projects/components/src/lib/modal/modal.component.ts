@@ -1,4 +1,13 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import {
+  Component,
+  ElementRef,
+  EventEmitter,
+  Input,
+  OnChanges,
+  Output,
+  SimpleChanges,
+  ViewChild,
+} from '@angular/core';
 
 @Component({
   selector: 'lib-modal',
@@ -9,6 +18,8 @@ import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
       aria-modal="true"
       aria-labelledby="dialog_label"
       aria-describedby="dialog_desc"
+      (close)="closeHandler($event)"
+      [returnValue]="this.returnValue"
     >
       <div id="dialog_label" class="dialog_label">
         <ng-content select="[label]"></ng-content>
@@ -17,27 +28,36 @@ import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
         <ng-content select="[desc]"></ng-content>
       </div>
       <div class="dialog_options">
-        <button type="button" id="button1">
-          <ng-content select="[button1]"></ng-content>
+        <button type="button" (click)="closeModal('cancel')">
+          <ng-content select="[cancel_button]"></ng-content>
         </button>
-        <button type="button" id="button2" (click)="hideModal()">
-          <ng-content select="[button2]"></ng-content>
+        <button type="button" (click)="closeModal('confirm')">
+          <ng-content select="[confirm_button]"></ng-content>
         </button>
       </div>
     </dialog>
-    <button type="button" (click)="openModal()">open</button>
   `,
   styleUrls: ['./modal.component.css'],
 })
 export class ModalComponent {
   @ViewChild('modal') modal!: ElementRef<HTMLDialogElement>;
+  @Input() showing: boolean = false;
+  @Output() close = new EventEmitter();
+  returnValue: string = 'escape';
 
   constructor() {}
 
-  openModal() {
-    this.modal.nativeElement.showModal();
+  ngOnChanges(changes: SimpleChanges) {
+    if (changes['showing'].firstChange) return;
+    if (changes['showing'].currentValue) this.modal.nativeElement.showModal();
+    this.returnValue = 'escape';
   }
-  hideModal() {
-    this.modal.nativeElement.close();
+
+  closeModal(value: string) {
+    this.returnValue = value;
+    this.modal.nativeElement.close(this.returnValue);
+  }
+  closeHandler(event: Event) {
+    this.close.emit(event);
   }
 }
