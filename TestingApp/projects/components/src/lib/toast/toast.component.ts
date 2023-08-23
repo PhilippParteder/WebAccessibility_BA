@@ -1,5 +1,4 @@
 import { Component, Input } from '@angular/core';
-import { ToastInOut } from '../animations';
 
 @Component({
   selector: 'lib-toast',
@@ -12,7 +11,6 @@ import { ToastInOut } from '../animations';
     </div>
   </div>`,
   styleUrls: ['./toast.component.css'],
-  animations: [ToastInOut],
 })
 export class ToastComponent {
   @Input() toast!: { status: string; message: string };
