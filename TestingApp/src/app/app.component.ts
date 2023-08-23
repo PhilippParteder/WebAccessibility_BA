@@ -26,10 +26,10 @@ export class AppComponent {
     ['item4', 'subItem4', 'subItem5', 'subItem6'],
   ];
   toasts = [
-    { status: 'success', message: 'message' },
-    { status: 'warning', message: 'message' },
-    { status: 'error', message: 'message' },
-    { status: 'info', message: 'message' },
+    { status: 'info', message: 'This is an info notification' },
+    { status: 'success', message: 'This is a success notification' },
+    { status: 'warning', message: 'This is a warning notification' },
+    { status: 'error', message: 'This is an error notification' },
   ];
 
   eventHandler(event: Event) {

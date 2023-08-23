@@ -2,8 +2,10 @@
   align-items: flex-end;
   display: flex;
   flex-direction: column;
-  inset: 32px 32px auto 32px;
+  inset: 32px 0px auto 32px;
+  padding-right: 32px;
   position: absolute;
   pointer-events: none;
   z-index: 10000;
+  overflow-x: hidden;
 }
