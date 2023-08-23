@@ -6,6 +6,8 @@ import { MenuComponent } from './menu/menu.component';
 import { MenuItemComponent } from './menu-item/menu-item.component';
 import { SubMenuComponent } from './sub-menu/sub-menu.component';
 import { ModalComponent } from './modal/modal.component';
+import { ToastComponent } from './toast/toast.component';
+import { ToasterComponent } from './toaster/toaster.component';
 
 @NgModule({
   declarations: [
@@ -14,6 +16,8 @@ import { ModalComponent } from './modal/modal.component';
     MenuItemComponent,
     SubMenuComponent,
     ModalComponent,
+    ToastComponent,
+    ToasterComponent,
   ],
   imports: [CommonModule, BrowserModule],
   exports: [
@@ -22,6 +26,8 @@ import { ModalComponent } from './modal/modal.component';
     MenuItemComponent,
     SubMenuComponent,
     ModalComponent,
+    ToastComponent,
+    ToasterComponent,
   ],
 })
 export class ComponentsModule {}

@@ -1,0 +1,48 @@
+.toast {
+  border: solid 2px;
+  border-radius: 4px;
+  min-width: 256px;
+  width: fit-content;
+  display: grid;
+  grid-template-columns: 24px 1fr 24px;
+  padding: 16px 12px;
+  pointer-events: all;
+  margin-bottom: 16px;
+}
+.toast__container {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  top: 32px;
+  right: 32px;
+}
+.toast--success {
+  background-color: #c8e6c9;
+  border-color: #1b5e20;
+  color: #1b5e20;
+}
+
+.toast--warning {
+  background-color: #fff9c4;
+  border-color: #f57f17;
+  color: #f57f17;
+}
+
+.toast--error {
+  background-color: #ffcdd2;
+  border-color: #b71c1c;
+  color: #b71c1c;
+}
+.toast--info {
+  background-color: #f5f5f5;
+  border-color: #212121;
+  color: #212121;
+}
+
+.toast__content {
+  margin: 0px 8px;
+}
+
+.toast__message {
+  margin: 8px 0px;
+}
