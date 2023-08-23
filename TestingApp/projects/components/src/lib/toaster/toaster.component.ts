@@ -1,5 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { ToastInOut } from '../animations';
+import { Toast } from '../toast/toast.model';
 
 @Component({
   selector: 'lib-toaster',
@@ -14,7 +15,7 @@ import { ToastInOut } from '../animations';
   animations: [ToastInOut],
 })
 export class ToasterComponent implements OnInit {
-  @Input() toasts!: Array<{ status: string; message: string }>;
+  @Input() toasts!: Array<Toast>;
 
   ngOnInit(): void {
     console.log(this.toasts);

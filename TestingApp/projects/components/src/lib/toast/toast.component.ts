@@ -1,4 +1,5 @@
 import { Component, Input } from '@angular/core';
+import { Toast } from './toast.model';
 
 @Component({
   selector: 'lib-toast',
@@ -13,5 +14,17 @@ import { Component, Input } from '@angular/core';
   styleUrls: ['./toast.component.css'],
 })
 export class ToastComponent {
-  @Input() toast!: { status: string; message: string };
+  @Input() toast!: Toast;
+
+  ngOnInit() {
+    if (this.toast.status === 'success' || this.toast.status === 'info') {
+      setTimeout(() => {
+        this.closeToast(this.toast);
+      }, 3000);
+    }
+  }
+
+  closeToast(toast: Toast) {
+    console.log(`closing ` + toast);
+  }
 }
