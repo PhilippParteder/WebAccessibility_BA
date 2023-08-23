@@ -1,4 +1,4 @@
 export interface Toast {
-  status: 'success' | 'info' | 'error' | '';
+  status: string;
   message: string;
 }

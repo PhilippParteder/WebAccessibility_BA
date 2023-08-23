@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, EventEmitter, Output } from '@angular/core';
 import { Toast } from './toast.model';
 
 @Component({
@@ -15,8 +15,10 @@ import { Toast } from './toast.model';
 })
 export class ToastComponent {
   @Input() toast!: Toast;
+  @Output() close: EventEmitter<string> = new EventEmitter();
 
   ngOnInit() {
+    console.log(this.toast);
     if (this.toast.status === 'success' || this.toast.status === 'info') {
       setTimeout(() => {
         this.closeToast(this.toast);
@@ -25,6 +27,6 @@ export class ToastComponent {
   }
 
   closeToast(toast: Toast) {
-    console.log(`closing ` + toast);
+    this.close.emit();
   }
 }
