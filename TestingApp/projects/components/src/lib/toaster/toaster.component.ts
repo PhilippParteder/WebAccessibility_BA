@@ -1,15 +1,17 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { ToastInOut } from '../animations';
 
 @Component({
   selector: 'lib-toaster',
   template: `
     <div class="toaster" *ngIf="toasts">
       <ng-container *ngFor="let toast of toasts">
-        <lib-toast [toast]="toast"></lib-toast>
+        <lib-toast @InOut [toast]="toast"></lib-toast>
       </ng-container>
     </div>
   `,
   styleUrls: ['./toaster.component.css'],
+  animations: [ToastInOut],
 })
 export class ToasterComponent implements OnInit {
   @Input() toasts!: Array<{ status: string; message: string }>;

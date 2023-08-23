@@ -8,18 +8,19 @@ import { SubMenuComponent } from './sub-menu/sub-menu.component';
 import { ModalComponent } from './modal/modal.component';
 import { ToastComponent } from './toast/toast.component';
 import { ToasterComponent } from './toaster/toaster.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
-    TableComponent,
     MenuComponent,
+    TableComponent,
     MenuItemComponent,
     SubMenuComponent,
     ModalComponent,
     ToastComponent,
     ToasterComponent,
   ],
-  imports: [CommonModule, BrowserModule],
+  imports: [CommonModule, BrowserModule, BrowserAnimationsModule],
   exports: [
     TableComponent,
     MenuComponent,
