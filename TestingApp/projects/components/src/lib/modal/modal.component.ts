@@ -3,7 +3,6 @@ import {
   ElementRef,
   EventEmitter,
   Input,
-  OnChanges,
   Output,
   SimpleChanges,
   ViewChild,
@@ -42,8 +41,6 @@ export class ModalComponent {
   @ViewChild('modal') modal!: ElementRef<HTMLDialogElement>;
   @Input() showing: boolean = false;
   @Output() emitter = new EventEmitter();
-
-  constructor() {}
 
   ngOnChanges(changes: SimpleChanges) {
     if (changes['showing'].firstChange) return;
