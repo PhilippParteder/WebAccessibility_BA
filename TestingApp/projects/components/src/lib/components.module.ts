@@ -9,6 +9,7 @@ import { ModalComponent } from './modal/modal.component';
 import { ToastComponent } from './toast/toast.component';
 import { ToasterComponent } from './toaster/toaster.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatIconModule } from '@angular/material/icon';
 
 @NgModule({
   declarations: [
@@ -20,7 +21,12 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     ToastComponent,
     ToasterComponent,
   ],
-  imports: [CommonModule, BrowserModule, BrowserAnimationsModule],
+  imports: [
+    CommonModule,
+    BrowserModule,
+    BrowserAnimationsModule,
+    MatIconModule,
+  ],
   exports: [
     TableComponent,
     MenuComponent,

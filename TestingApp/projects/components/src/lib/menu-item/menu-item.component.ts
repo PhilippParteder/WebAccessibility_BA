@@ -20,7 +20,7 @@ import {
           <span #label class="visually-hidden"
             >show submenu for "{{ this.title }}"</span
           >
-          <i class="fa-regular fa-angle-down"></i>
+          <mat-icon>expand_more</mat-icon>
         </button>
       </span>
       <div class="submenu" #submenu *ngIf="hasSubmenu">

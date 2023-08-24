@@ -4,7 +4,7 @@
   min-width: 256px;
   width: fit-content;
   display: grid;
-  grid-template-columns: 24px 1fr 24px;
+  grid-template-columns: 1fr 24px;
   padding: 16px 12px;
   pointer-events: all;
   margin-bottom: 16px;
@@ -45,4 +45,10 @@
 
 .toast__message {
   margin: 8px 0px;
+}
+button {
+  all: unset;
+}
+.fa-x::before {
+  content: "\58";
 }
