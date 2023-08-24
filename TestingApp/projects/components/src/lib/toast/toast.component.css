@@ -24,8 +24,8 @@
 
 .toast--warning {
   background-color: #fff9c4;
-  border-color: #f57f17;
-  color: #f57f17;
+  border-color: #964e0f;
+  color: #964e0f;
 }
 
 .toast--error {
@@ -38,7 +38,11 @@
   border-color: #212121;
   color: #212121;
 }
-
+.toast__title {
+  font-size: 18px;
+  font-weight: 700;
+  line-height: 24px;
+}
 .toast__content {
   margin: 0px 8px;
 }
@@ -48,7 +52,15 @@
 }
 button {
   all: unset;
+  height: fit-content;
 }
-.fa-x::before {
-  content: "\58";
+button:focus {
+  outline: orange auto 5px;
+}
+.close-icon {
+  cursor: pointer;
+  transition: 0.3s transform;
+}
+.close-icon:hover {
+  transform: rotate(90deg) scale(1.25);
 }

@@ -6,16 +6,18 @@ import { Toast } from './toast.model';
   template: `
     <div [ngClass]="'toast--' + toast.status" class="toast">
       <div class="toast__content">
-        <h5>
+        <p class="toast__title">
           {{ toast.status.charAt(0).toUpperCase() + toast.status.substring(1) }}
-        </h5>
+        </p>
         <p class="toast__message">{{ toast.message }}</p>
       </div>
       <button
         *ngIf="toast.status === 'error' || toast.status === 'warning'"
         class="toast_button"
+        aria-label="close"
+        (click)="closeToast(toast)"
       >
-        <mat-icon>close</mat-icon>
+        <mat-icon class="close-icon"> close </mat-icon>
       </button>
     </div>
   `,
