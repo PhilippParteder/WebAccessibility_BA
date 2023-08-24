@@ -31,8 +31,9 @@ export default class MenuItem extends HTMLElement {
             span.innerHTML = `show submenu for "${this.title}"`;
             button.appendChild(span);
 
-            const icon = document.createElement('i');
-            icon.classList.add('fa-regular', 'fa-angle-down');
+            const icon = document.createElement('span');
+            icon.classList.add('material-symbols-outlined', 'icon');
+            icon.innerText = 'expand_more';
             button.appendChild(icon);
 
             button.addEventListener('click', (event) => {
@@ -65,6 +66,8 @@ export default class MenuItem extends HTMLElement {
         style.textContent = `
         .link {
             padding: 4px 8px;
+            display: flex;
+            align-items: center;
         }
         .link > a {
             color: #ffffff;
@@ -77,24 +80,32 @@ export default class MenuItem extends HTMLElement {
         button {
             all: unset;
             cursor: pointer;
-            padding: 0px 4px 0px 0px;
+            padding: 0;
+            height: 19px;
         }
         button:focus {
             outline: orange auto 5px;
         }
-        .fa-angle-down::before {
-            content: "\\f107";
-        }
-        i { 
-            font-family: FontAwesome;
-            font-size: 10pt;
-            font-weight: normal;
-            font-style: normal;
-            margin: 0px 0px 0px 2px;
-            text-decoration: none;
-        }
         .open .submenu {
             display: block !important;
+        }
+        .material-symbols-outlined {
+            font-family: 'Material Symbols Outlined';
+            font-weight: normal;
+            font-style: normal;
+            font-size: 24px;
+            line-height: 1;
+            letter-spacing: normal;
+            text-transform: none;
+            display: inline-block;
+            white-space: nowrap;
+            word-wrap: normal;
+            direction: ltr;
+            -moz-font-feature-settings: 'liga';
+            -moz-osx-font-smoothing: grayscale;
+        }
+        .icon{
+            transform: translateY(-2px);
         }
         .visually-hidden{
             display: none;
