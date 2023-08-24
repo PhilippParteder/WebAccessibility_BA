@@ -14,7 +14,7 @@
 button {
   all: unset;
   cursor: pointer;
-  padding: 0px 4px 0px 0px;
+  padding: 0;
   height: 19px;
 }
 button:focus {
