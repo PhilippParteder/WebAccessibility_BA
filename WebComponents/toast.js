@@ -13,7 +13,6 @@ export default class Toast extends HTMLElement {
         </div>`;
     }
     connectedCallback() {
-        console.log('toast connected');
         this.renderToast();
         const style = document.createElement('style');
         style.textContent = `
@@ -130,8 +129,5 @@ export default class Toast extends HTMLElement {
                 this.closeToast();
             }, 5000);
         }
-    }
-    disconnectedCallback() {
-        console.log('toast disconnected');
     }
 }

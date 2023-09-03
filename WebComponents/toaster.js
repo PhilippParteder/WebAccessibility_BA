@@ -13,19 +13,11 @@ export default class Toaster extends HTMLElement {
 
     attributeChangedCallback(name, oldValue, newValue) {
         if (name === 'toasts') {
-            console.log(`'this.toasts' set/changed`);
             if (!oldValue) {
-                console.log('first');
                 this.renderToasts(JSON.parse(newValue));
             } else {
-                console.log('after');
-
                 const oldArray = JSON.parse(oldValue);
                 const newArray = JSON.parse(newValue);
-
-                console.log(oldArray);
-                console.log(newArray);
-
                 if (JSON.stringify(oldArray) !== JSON.stringify(newArray)) {
                     this.newToasts = [...oldArray, ...newArray].filter(
                         (item) => {
@@ -38,7 +30,6 @@ export default class Toaster extends HTMLElement {
                             );
                         }
                     );
-                    console.log(this.newToasts);
                     this.renderToasts(this.newToasts);
                 }
             }
@@ -46,7 +37,6 @@ export default class Toaster extends HTMLElement {
     }
 
     connectedCallback() {
-        console.log('toaster connected');
         const style = document.createElement('style');
         style.textContent = `
         .toaster {
@@ -68,8 +58,6 @@ export default class Toaster extends HTMLElement {
         });
     }
     renderToasts(toasts) {
-        console.log('rendering:');
-        console.log(toasts);
         if (!toasts) return;
         toasts.forEach((toast, index) => {
             const myToast = document.createElement('my-toast');
