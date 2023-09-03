@@ -59,17 +59,14 @@
         ];
 
         const toaster = document.querySelector('my-toaster');
-        toaster.toasts = toasts;
-
-        console.log(toaster);
+        toaster.setAttribute('toasts', JSON.stringify(toasts));
 
         setTimeout(() => {
             toasts.push({
                 status: 'error',
                 message: 'This is an additional error notification',
             });
-            toaster.toasts = toasts;
-            console.log(toaster.toasts);
+            toaster.setAttribute('toasts', JSON.stringify(toasts));
         }, 7000);
     </script>
 </html>

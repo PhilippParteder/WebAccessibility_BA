@@ -3,34 +3,18 @@ export default class Toast extends HTMLElement {
         super();
         this.root = this.attachShadow({ mode: 'closed' });
         this.root.innerHTML = `    
-        <div class="toast toast--${this.toast.status}">
+        <div class="toast">
             <div class="toast__content">
-                <p class="toast__title">
-                    ${
-                        this.toast.status.charAt(0).toUpperCase() +
-                        this.toast.status.substring(1)
-                    }
-                </p> 
-                <p class="toast__message">${this.toast.message}</p>
+                <p class="toast__title"></p> 
+                <p class="toast__message"></p>
             </div>
             <button class="toast_button" aria-label="close">
             </button>
         </div>`;
     }
     connectedCallback() {
-        if (this.toast.status === 'error' || this.toast.status === 'warning') {
-            const icon = document.createElement('span');
-            icon.classList.add('material-symbols-outlined', 'icon');
-            icon.innerText = 'close';
-            this.root.querySelector('button').appendChild(icon);
-            this.root.querySelector('button').addEventListener('click', () => {
-                this.closeToast();
-            });
-        } else {
-            setTimeout(() => {
-                this.closeToast();
-            }, 5000);
-        }
+        console.log('toast connected');
+        this.renderToast();
         const style = document.createElement('style');
         style.textContent = `
       .toast {
@@ -121,5 +105,33 @@ export default class Toast extends HTMLElement {
                 composed: true,
             })
         );
+    }
+    renderToast() {
+        this.root
+            .querySelector('.toast')
+            .classList.add(`toast--${this.toast.status}`);
+        this.root.querySelector('.toast__title').innerHTML = `${
+            this.toast.status.charAt(0).toUpperCase() +
+            this.toast.status.substring(1)
+        }`;
+        this.root.querySelector(
+            '.toast__message'
+        ).innerHTML = `${this.toast.message}`;
+        if (this.toast.status === 'error' || this.toast.status === 'warning') {
+            const icon = document.createElement('span');
+            icon.classList.add('material-symbols-outlined', 'icon');
+            icon.innerText = 'close';
+            this.root.querySelector('button').appendChild(icon);
+            this.root.querySelector('button').addEventListener('click', () => {
+                this.closeToast();
+            });
+        } else {
+            setTimeout(() => {
+                this.closeToast();
+            }, 5000);
+        }
+    }
+    disconnectedCallback() {
+        console.log('toast disconnected');
     }
 }
