@@ -36,4 +36,12 @@ export class AppComponent {
     this.showingModal = false;
     console.log(event);
   }
+  ngOnInit() {
+    setTimeout(() => {
+      this.toasts.push({
+        status: 'error',
+        message: 'This is an error notification',
+      });
+    }, 7000);
+  }
 }

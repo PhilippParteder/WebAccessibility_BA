@@ -15,9 +15,9 @@ import { Toast } from './toast.model';
         *ngIf="toast.status === 'error' || toast.status === 'warning'"
         class="toast_button"
         aria-label="close"
-        (click)="closeToast(toast)"
+        (click)="closeToast()"
       >
-        <mat-icon class="close-icon"> close </mat-icon>
+        <mat-icon class="icon"> close </mat-icon>
       </button>
     </div>
   `,
@@ -30,12 +30,12 @@ export class ToastComponent {
   ngOnInit() {
     if (this.toast.status === 'success' || this.toast.status === 'info') {
       setTimeout(() => {
-        this.closeToast(this.toast);
+        this.closeToast();
       }, 5000);
     }
   }
 
-  closeToast(toast: Toast) {
+  closeToast() {
     this.close.emit();
   }
 }

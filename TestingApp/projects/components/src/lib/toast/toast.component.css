@@ -57,10 +57,10 @@ button {
 button:focus {
   outline: orange auto 5px;
 }
-.close-icon {
+.icon {
   cursor: pointer;
   transition: 0.3s transform;
 }
-.close-icon:hover {
+.icon:hover {
   transform: rotate(90deg) scale(1.25);
 }

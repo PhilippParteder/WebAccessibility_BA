@@ -8,7 +8,11 @@ import { Toast } from '../toast/toast.model';
     <div role="alert" aria-live="polite" class="toaster" aria-atomic="true">
       <ng-container *ngIf="toasts">
         <ng-container *ngFor="let toast of toasts; let i = index">
-          <lib-toast @InOut [toast]="toast" (close)="removeMe(i)"></lib-toast>
+          <lib-toast
+            @InOut
+            [toast]="toast"
+            (close)="removeToast(i)"
+          ></lib-toast>
         </ng-container>
       </ng-container>
     </div>
@@ -19,7 +23,7 @@ import { Toast } from '../toast/toast.model';
 export class ToasterComponent {
   @Input() toasts!: Array<Toast>;
 
-  removeMe(index: number) {
+  removeToast(index: number) {
     this.toasts.splice(index, 1);
   }
 }
