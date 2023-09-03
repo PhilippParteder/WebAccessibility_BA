@@ -16,86 +16,104 @@ export default class Toast extends HTMLElement {
         this.renderToast();
         const style = document.createElement('style');
         style.textContent = `
-      .toast {
-        border: solid 2px;
-        border-radius: 4px;
-        min-width: 256px;
-        width: fit-content;
-        display: grid;
-        grid-template-columns: 1fr 24px;
-        padding: 16px 12px;
-        pointer-events: all;
-        margin-bottom: 16px;
-      }
-      .toast__container {
-        position: absolute;
-        display: flex;
-        flex-direction: column;
-        top: 32px;
-        right: 32px;
-      }
-      .toast--success {
-        background-color: #c8e6c9;
-        border-color: #1b5e20;
-        color: #1b5e20;
-      }
-      .toast--warning {
-        background-color: #fff9c4;
-        border-color: #964e0f;
-        color: #964e0f;
-      }
-      .toast--error {
-        background-color: #ffcdd2;
-        border-color: #b71c1c;
-        color: #b71c1c;
-      }
-      .toast--info {
-        background-color: #f5f5f5;
-        border-color: #212121;
-        color: #212121;
-      }
-      .toast__title {
-        font-size: 18px;
-        font-weight: 700;
-        line-height: 24px;
-        margin:0;
-        padding:0;
-      }
-      .toast__content {
-        margin: 0px 8px;
-      }
-      .toast__message {
-        margin: 8px 0px;
-      }
-      button {
-        all: unset;
-        height: fit-content;
-      }
-      button:focus {
-        outline: orange auto 5px;
-      }
-      .material-symbols-outlined {
-          font-family: 'Material Symbols Outlined';
-          font-weight: normal;
-          font-style: normal;
-          font-size: 24px;
-          line-height: 1;
-          letter-spacing: normal;
-          text-transform: none;
-          display: inline-block;
-          white-space: nowrap;
-          word-wrap: normal;
-          direction: ltr;
-          -moz-font-feature-settings: 'liga';
-          -moz-osx-font-smoothing: grayscale;
-      }
-      .icon {
-          cursor: pointer;
-          transition: 0.3s transform;
-      }
-      .icon:hover {
-          transform: rotate(90deg) scale(1.25);
-         }`;
+        .toast {
+          border: solid 2px;
+          border-radius: 4px;
+          min-width: 256px;
+          width: fit-content;
+          display: grid;
+          grid-template-columns: 1fr 24px;
+          padding: 16px 12px;
+          pointer-events: all;
+          margin-bottom: 16px;
+          animation: slideInRight 0.5s ease-in-out;
+        }
+        .toast.slideOut {
+          animation: slideOutLeft 0.5s ease-in-out;
+          animation-fill-mode: both;
+        }
+        .toast--success {
+          background-color: #c8e6c9;
+          border-color: #1b5e20;
+          color: #1b5e20;
+        }
+        .toast--warning {
+          background-color: #fff9c4;
+          border-color: #964e0f;
+          color: #964e0f;
+        }
+        .toast--error {
+          background-color: #ffcdd2;
+          border-color: #b71c1c;
+          color: #b71c1c;
+        }
+        .toast--info {
+          background-color: #f5f5f5;
+          border-color: #212121;
+          color: #212121;
+        }
+        .toast__title {
+          font-size: 18px;
+          font-weight: 700;
+          line-height: 24px;
+          margin:0;
+          padding:0;
+        }
+        .toast__content {
+          margin: 0px 8px;
+        }
+        .toast__message {
+          margin: 8px 0px;
+        }
+        button {
+          all: unset;
+          height: fit-content;
+        }
+        button:focus {
+          outline: orange auto 5px;
+        }
+        .material-symbols-outlined {
+            font-family: 'Material Symbols Outlined';
+            font-weight: normal;
+            font-style: normal;
+            font-size: 24px;
+            line-height: 1;
+            letter-spacing: normal;
+            text-transform: none;
+            display: inline-block;
+            white-space: nowrap;
+            word-wrap: normal;
+            direction: ltr;
+            -moz-font-feature-settings: 'liga';
+            -moz-osx-font-smoothing: grayscale;
+        }
+        .icon {
+            cursor: pointer;
+            transition: 0.3s transform;
+        }
+        .icon:hover {
+            transform: rotate(90deg) scale(1.25);
+          }
+        @keyframes slideOutLeft {
+          0% {
+            transform: translateX(0);
+            opacity: 1;
+          }
+          100% {
+            transform: translateX(100%);
+            opacity: 0;
+          }
+        }
+        @keyframes slideInRight {
+          0% {
+            transform: translateX(100%);
+            opacity: 0;
+          }
+          100% {
+            transform: translateX(0);
+            opacity: 1;
+          }
+        }`;
         this.root.append(style);
     }
     closeToast() {
@@ -104,6 +122,7 @@ export default class Toast extends HTMLElement {
                 composed: true,
             })
         );
+        this.root.querySelector('.toast').classList.add('slideOut');
     }
     renderToast() {
         this.root

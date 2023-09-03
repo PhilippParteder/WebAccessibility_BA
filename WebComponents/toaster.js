@@ -54,7 +54,10 @@ export default class Toaster extends HTMLElement {
     }
     removeToast(index) {
         this.root.querySelectorAll(`my-toast`).forEach((element) => {
-            if (element.index === index) element.remove();
+            if (element.index === index)
+                setTimeout(() => {
+                    element.remove();
+                }, 500);
         });
     }
     renderToasts(toasts) {
