@@ -24,6 +24,7 @@
             <span slot="confirm_button">confirm</span>
         </my-modal>
         <button id="modalButton">open Modal</button>
+        <my-toaster></my-toaster>
     </body>
     <script>
         const menuItems = [
@@ -49,5 +50,26 @@
         modal.addEventListener('confirm', (event) => {
             console.log(event);
         });
+
+        const toasts = [
+            { status: 'info', message: 'This is an info notification' },
+            { status: 'success', message: 'This is a success notification' },
+            { status: 'warning', message: 'This is a warning notification' },
+            { status: 'error', message: 'This is an error notification' },
+        ];
+
+        const toaster = document.querySelector('my-toaster');
+        toaster.toasts = toasts;
+
+        console.log(toaster);
+
+        setTimeout(() => {
+            toasts.push({
+                status: 'error',
+                message: 'This is an additional error notification',
+            });
+            toaster.toasts = toasts;
+            console.log(toaster.toasts);
+        }, 7000);
     </script>
 </html>
