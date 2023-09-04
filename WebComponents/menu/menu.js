@@ -1,8 +1,7 @@
 export default class Menu extends HTMLElement {
     constructor() {
         super();
-        this.root = this.attachShadow({ mode: 'closed' });
-        this.root.innerHTML = `
+        this.innerHTML = `
         <nav aria-label="Menu">
             <ul>
             </ul>
@@ -14,14 +13,14 @@ export default class Menu extends HTMLElement {
                 const menuItem = document.createElement('my-menu-item');
                 menuItem.setAttribute('title', item);
                 menuItem.setAttribute('href', item);
-                this.root.querySelector('ul').appendChild(menuItem);
+                this.querySelector('ul').appendChild(menuItem);
             } else {
                 const menuItem = document.createElement('my-menu-item');
                 menuItem.setAttribute('title', item[0]);
                 menuItem.setAttribute('href', item[0]);
                 menuItem.hasSubmenu = true;
                 menuItem.subMenuItems = item;
-                this.root.querySelector('ul').appendChild(menuItem);
+                this.querySelector('ul').appendChild(menuItem);
             }
         });
         const style = document.createElement('style');
@@ -36,6 +35,6 @@ export default class Menu extends HTMLElement {
             padding: 32px 0;
             margin: 0px;
         }`;
-        this.root.append(style);
+        this.append(style);
     }
 }

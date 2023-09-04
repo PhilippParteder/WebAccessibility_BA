@@ -1,8 +1,7 @@
 export default class SubMenu extends HTMLElement {
     constructor() {
         super();
-        this.root = this.attachShadow({ mode: 'closed' });
-        this.root.innerHTML = `
+        this.innerHTML = `
         <ul aria-label="Submenu"></ul>
       `;
     }
@@ -12,7 +11,7 @@ export default class SubMenu extends HTMLElement {
             const menuItem = document.createElement('my-menu-item');
             menuItem.setAttribute('title', item);
             menuItem.setAttribute('href', this.subMenuItems[0] + '/' + item);
-            this.root.querySelector('ul').appendChild(menuItem);
+            this.querySelector('ul').appendChild(menuItem);
         });
         const style = document.createElement('style');
         style.textContent = `
@@ -27,6 +26,6 @@ export default class SubMenu extends HTMLElement {
         }
           
         `;
-        this.root.append(style);
+        this.append(style);
     }
 }

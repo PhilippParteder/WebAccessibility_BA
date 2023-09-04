@@ -1,9 +1,8 @@
 export default class MenuItem extends HTMLElement {
     constructor() {
         super();
-        this.root = this.attachShadow({ mode: 'closed' });
         let timer;
-        this.root.innerHTML = `
+        this.innerHTML = `
         <li>
             <span class="link">
                 <a href="${this.href}" aria-expanded="false">
@@ -14,15 +13,15 @@ export default class MenuItem extends HTMLElement {
     }
 
     connectedCallback() {
-        this.root.querySelector('a').href = this.getAttribute('href');
-        this.root.querySelector('a').innerHTML = this.title;
+        this.querySelector('a').href = this.getAttribute('href');
+        this.querySelector('a').innerHTML = this.title;
 
         if (this.hasSubmenu) {
             const subMenu = document.createElement('my-sub-menu');
             subMenu.subMenuItems = this.subMenuItems;
             subMenu.style.display = 'none';
             subMenu.classList.add('submenu');
-            this.root.querySelector('li').appendChild(subMenu);
+            this.querySelector('li').appendChild(subMenu);
 
             const button = document.createElement('button');
 
@@ -38,8 +37,8 @@ export default class MenuItem extends HTMLElement {
 
             button.addEventListener('click', (event) => {
                 event.preventDefault();
-                const a = this.root.querySelector('a');
-                const label = this.root.querySelector('button > span');
+                const a = this.querySelector('a');
+                const label = this.querySelector('button > span');
                 if (a.getAttribute('aria-expanded') == 'true') {
                     a.setAttribute('aria-expanded', 'false');
                     label.innerHTML = `show submenu for "${this.title}"`;
@@ -50,14 +49,14 @@ export default class MenuItem extends HTMLElement {
                     subMenu.style.display = 'block';
                 }
             });
-            this.root.querySelector('span').append(button);
-            this.root.querySelector('li').addEventListener('mouseover', () => {
-                this.root.querySelector('li').classList.add('open');
+            this.querySelector('span').append(button);
+            this.querySelector('li').addEventListener('mouseover', () => {
+                this.querySelector('li').classList.add('open');
                 clearTimeout(this.timer);
             });
-            this.root.querySelector('li').addEventListener('mouseout', () => {
+            this.querySelector('li').addEventListener('mouseout', () => {
                 this.timer = setTimeout(() => {
-                    this.root.querySelector('li').classList.remove('open');
+                    this.querySelector('li').classList.remove('open');
                 }, 500);
             });
         }
@@ -111,6 +110,6 @@ export default class MenuItem extends HTMLElement {
             display: none;
         }
         `;
-        this.root.append(style);
+        this.append(style);
     }
 }
