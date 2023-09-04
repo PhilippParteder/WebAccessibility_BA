@@ -1,15 +1,12 @@
 export default class Toast extends HTMLElement {
     constructor() {
         super();
-        this.root = this.attachShadow({ mode: 'closed' });
-        this.root.innerHTML = `    
+        this.innerHTML = `    
         <div class="toast">
             <div class="toast__content">
                 <p class="toast__title"></p> 
                 <p class="toast__message"></p>
             </div>
-            <button class="toast_button" aria-label="close">
-            </button>
         </div>`;
     }
     connectedCallback() {
@@ -114,35 +111,39 @@ export default class Toast extends HTMLElement {
             opacity: 1;
           }
         }`;
-        this.root.append(style);
+        this.append(style);
     }
     closeToast() {
-        this.root.dispatchEvent(
+        this.dispatchEvent(
             new Event('close', {
                 composed: true,
             })
         );
-        this.root.querySelector('.toast').classList.add('slideOut');
+        this.querySelector('.toast').classList.add('slideOut');
     }
     renderToast() {
-        this.root
-            .querySelector('.toast')
-            .classList.add(`toast--${this.toast.status}`);
-        this.root.querySelector('.toast__title').innerHTML = `${
+        this.querySelector('.toast').classList.add(
+            `toast--${this.toast.status}`
+        );
+        this.querySelector('.toast__title').innerHTML = `${
             this.toast.status.charAt(0).toUpperCase() +
             this.toast.status.substring(1)
         }`;
-        this.root.querySelector(
+        this.querySelector(
             '.toast__message'
         ).innerHTML = `${this.toast.message}`;
         if (this.toast.status === 'error' || this.toast.status === 'warning') {
+            const button = document.createElement('button');
+            button.classList.add('toast_button');
+            button.setAttribute('aria-label', 'close');
             const icon = document.createElement('span');
             icon.classList.add('material-symbols-outlined', 'icon');
             icon.innerText = 'close';
-            this.root.querySelector('button').appendChild(icon);
-            this.root.querySelector('button').addEventListener('click', () => {
+            button.appendChild(icon);
+            button.addEventListener('click', () => {
                 this.closeToast();
             });
+            this.querySelector('.toast').appendChild(button);
         } else {
             setTimeout(() => {
                 this.closeToast();

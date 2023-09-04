@@ -1,8 +1,7 @@
 export default class Toaster extends HTMLElement {
     constructor() {
         super();
-        this.root = this.attachShadow({ mode: 'open' });
-        this.root.innerHTML = `
+        this.innerHTML = `
         <div role="alert" aria-live="polite" class="toaster" id="toaster" aria-atomic="true">
         </div>`;
     }
@@ -50,10 +49,10 @@ export default class Toaster extends HTMLElement {
             z-index: 10000;
             overflow-x: hidden;
         }`;
-        this.root.append(style);
+        this.append(style);
     }
     removeToast(index) {
-        this.root.querySelectorAll(`my-toast`).forEach((element) => {
+        this.querySelectorAll(`my-toast`).forEach((element) => {
             if (element.index === index)
                 setTimeout(() => {
                     element.remove();
@@ -69,7 +68,7 @@ export default class Toaster extends HTMLElement {
             myToast.addEventListener('close', () => {
                 this.removeToast(index);
             });
-            this.root.querySelector('#toaster').appendChild(myToast);
+            this.querySelector('#toaster').appendChild(myToast);
         });
     }
 }
