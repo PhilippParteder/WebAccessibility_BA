@@ -52,7 +52,7 @@ export default class Toaster extends HTMLElement {
         this.append(style);
     }
     removeToast(index) {
-        this.querySelectorAll(`my-toast`).forEach((element) => {
+        this.querySelectorAll('.toast').forEach((element) => {
             if (element.index === index)
                 setTimeout(() => {
                     element.remove();
@@ -62,7 +62,7 @@ export default class Toaster extends HTMLElement {
     renderToasts(toasts) {
         if (!toasts) return;
         toasts.forEach((toast, index) => {
-            const myToast = document.createElement('my-toast');
+            const myToast = document.createElement('div', { is: 'my-toast' });
             myToast.toast = toast;
             myToast.index = index;
             myToast.addEventListener('close', () => {

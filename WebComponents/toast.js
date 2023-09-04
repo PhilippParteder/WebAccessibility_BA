@@ -1,16 +1,15 @@
-export default class Toast extends HTMLElement {
+export default class Toast extends HTMLDivElement {
     constructor() {
         super();
         this.innerHTML = `    
-        <div class="toast">
             <div class="toast__content">
                 <p class="toast__title"></p> 
                 <p class="toast__message"></p>
-            </div>
-        </div>`;
+            </div>`;
     }
     connectedCallback() {
         this.renderToast();
+        this.classList.add('toast');
         const style = document.createElement('style');
         style.textContent = `
         .toast {
@@ -115,12 +114,10 @@ export default class Toast extends HTMLElement {
     }
     closeToast() {
         this.dispatchEvent(new Event('close'));
-        this.querySelector('.toast').classList.add('slideOut');
+        this.classList.add('slideOut');
     }
     renderToast() {
-        this.querySelector('.toast').classList.add(
-            `toast--${this.toast.status}`
-        );
+        this.classList.add(`toast--${this.toast.status}`);
         this.querySelector('.toast__title').innerHTML = `${
             this.toast.status.charAt(0).toUpperCase() +
             this.toast.status.substring(1)
@@ -139,7 +136,7 @@ export default class Toast extends HTMLElement {
             button.addEventListener('click', () => {
                 this.closeToast();
             });
-            this.querySelector('.toast').appendChild(button);
+            this.appendChild(button);
         } else {
             setTimeout(() => {
                 this.closeToast();
