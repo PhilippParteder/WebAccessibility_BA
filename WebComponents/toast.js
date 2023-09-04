@@ -114,11 +114,7 @@ export default class Toast extends HTMLElement {
         this.append(style);
     }
     closeToast() {
-        this.dispatchEvent(
-            new Event('close', {
-                composed: true,
-            })
-        );
+        this.dispatchEvent(new Event('close'));
         this.querySelector('.toast').classList.add('slideOut');
     }
     renderToast() {
