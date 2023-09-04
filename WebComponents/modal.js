@@ -1,9 +1,8 @@
 export default class Modal extends HTMLElement {
     constructor() {
         super();
-        this.root = this.attachShadow({ mode: 'closed' });
         let showing = false;
-        this.root.innerHTML = `
+        this.innerHTML = `
         <dialog
             role="alertdialog"
             aria-modal="true"
@@ -29,38 +28,38 @@ export default class Modal extends HTMLElement {
         return ['showing'];
     }
     connectedCallback() {
-        this.root
-            .querySelector('dialog')
-            .addEventListener('keydown', (event) => {
-                if (event.key === 'Escape') {
-                    this.closeModal();
-                    this.root.dispatchEvent(
-                        new Event('escape', {
-                            composed: true,
-                        })
-                    );
-                }
-            });
-        this.root
-            .querySelector('#confirm_button')
-            .addEventListener('click', (event) => {
+        this.querySelector('dialog').addEventListener('keydown', (event) => {
+            if (event.key === 'Escape') {
                 this.closeModal();
-                this.root.dispatchEvent(
+                this.dispatchEvent(
+                    new Event('escape', {
+                        composed: true,
+                    })
+                );
+            }
+        });
+        this.querySelector('#confirm_button').addEventListener(
+            'click',
+            (event) => {
+                this.closeModal();
+                this.dispatchEvent(
                     new Event('confirm', {
                         composed: true,
                     })
                 );
-            });
-        this.root
-            .querySelector('#cancel_button')
-            .addEventListener('click', (event) => {
+            }
+        );
+        this.querySelector('#cancel_button').addEventListener(
+            'click',
+            (event) => {
                 this.closeModal();
-                this.root.dispatchEvent(
+                this.dispatchEvent(
                     new Event('cancel', {
                         composed: true,
                     })
                 );
-            });
+            }
+        );
 
         const style = document.createElement('style');
         style.textContent = `
@@ -92,15 +91,13 @@ export default class Modal extends HTMLElement {
         .dialog_options > button:hover {
             background-color: #dddddd;
         }`;
-        this.root.append(style);
+        this.append(style);
     }
     attributeChangedCallback(name, oldValue, newValue) {
         this.showing = newValue;
-        this.root.querySelector('dialog').returnValue = 'escape';
-        if (this.showing === 'true')
-            this.root.querySelector('dialog').showModal();
+        if (this.showing === 'true') this.querySelector('dialog').showModal();
     }
     closeModal() {
-        this.root.querySelector('dialog').close();
+        this.querySelector('dialog').close();
     }
 }
