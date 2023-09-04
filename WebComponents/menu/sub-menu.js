@@ -1,21 +1,23 @@
-export default class SubMenu extends HTMLElement {
+export default class SubMenu extends HTMLUListElement {
     constructor() {
         super();
-        this.innerHTML = `
-        <ul aria-label="Submenu"></ul>
-      `;
     }
     connectedCallback() {
+        this.ariaLabel = 'Submenu';
+        this.classList.add('submenu');
         this.subMenuItems.forEach((item, i) => {
             if (i === 0) return;
-            const menuItem = document.createElement('my-menu-item');
+            const menuItem = document.createElement('li', {
+                is: 'my-menu-item',
+            });
+
             menuItem.setAttribute('title', item);
             menuItem.setAttribute('href', this.subMenuItems[0] + '/' + item);
-            this.querySelector('ul').appendChild(menuItem);
+            this.appendChild(menuItem);
         });
         const style = document.createElement('style');
         style.textContent = `
-        ul {
+        .submenu {
             list-style-type: none;
             display: flex;
             flex-direction: column;
@@ -23,9 +25,7 @@ export default class SubMenu extends HTMLElement {
             margin: 0px;
             margin-top: 8px;
             padding: 0px;
-        }
-          
-        `;
+        }`;
         this.append(style);
     }
 }

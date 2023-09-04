@@ -1,15 +1,12 @@
-export default class MenuItem extends HTMLElement {
+export default class MenuItem extends HTMLLIElement {
     constructor() {
         super();
-        let timer;
         this.innerHTML = `
-        <li>
-            <span class="link">
+            <span class="menu__link">
                 <a href="${this.href}" aria-expanded="false">
                     ${this.title}
                 </a>
-            </span>
-        </li>`;
+            </span>`;
     }
 
     connectedCallback() {
@@ -17,11 +14,13 @@ export default class MenuItem extends HTMLElement {
         this.querySelector('a').innerHTML = this.title;
 
         if (this.hasSubmenu) {
-            const subMenu = document.createElement('my-sub-menu');
+            const subMenu = document.createElement('ul', {
+                is: 'my-sub-menu',
+            });
             subMenu.subMenuItems = this.subMenuItems;
             subMenu.style.display = 'none';
             subMenu.classList.add('submenu');
-            this.querySelector('li').appendChild(subMenu);
+            this.appendChild(subMenu);
 
             const button = document.createElement('button');
 
@@ -50,30 +49,30 @@ export default class MenuItem extends HTMLElement {
                 }
             });
             this.querySelector('span').append(button);
-            this.querySelector('li').addEventListener('mouseover', () => {
-                this.querySelector('li').classList.add('open');
+            this.addEventListener('mouseover', () => {
+                this.classList.add('open');
                 clearTimeout(this.timer);
             });
-            this.querySelector('li').addEventListener('mouseout', () => {
+            this.addEventListener('mouseout', () => {
                 this.timer = setTimeout(() => {
-                    this.querySelector('li').classList.remove('open');
+                    this.classList.remove('open');
                 }, 500);
             });
         }
 
         const style = document.createElement('style');
         style.textContent = `
-        .link {
+        .menu__link {
             padding: 4px 8px;
             display: flex;
             align-items: center;
         }
-        .link > a {
+        .menu__link > a {
             color: #ffffff;
             text-decoration: none;
         }
-        .link:focus,
-        .link:hover {
+        .menu__link:focus,
+        .menu__link:hover {
             text-decoration: underline;
         }
         button {
