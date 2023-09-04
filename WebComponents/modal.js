@@ -16,10 +16,10 @@ export default class Modal extends HTMLElement {
                 <slot name="dialog_desc"></slot>
             </div>
             <div class="dialog_options">
-                <button type="button" id="cancel_button" >
+                <button class="dialog__button" type="button" id="cancel_button" >
                     <slot name="cancel_button"></slot>
                 </button>
-                <button type="button" id="confirm_button">
+                <button class="dialog__button" type="button" id="confirm_button">
                     <slot name="confirm_button"></slot>
                 </button>
             </div>
@@ -78,7 +78,7 @@ export default class Modal extends HTMLElement {
             flex-direction: row;
             justify-content: flex-end;
         }
-        .dialog_options > button {
+        .dialog_options > .dialog__button {
             margin: 8px;
             padding: 4px 8px;
             min-width: 32px;
@@ -89,7 +89,7 @@ export default class Modal extends HTMLElement {
             text-align: center;
             cursor: pointer;
         }
-        .dialog_options > button:hover {
+        .dialog_options > .dialog__button:hover {
             background-color: #dddddd;
         }`;
         this.root.append(style);

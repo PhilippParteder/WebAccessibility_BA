@@ -61,7 +61,7 @@ export default class Toast extends HTMLDivElement {
         .toast__message {
           margin: 8px 0px;
         }
-        button {
+        .toast__button {
           all: unset;
           height: fit-content;
         }
@@ -89,7 +89,7 @@ export default class Toast extends HTMLDivElement {
         }
         .icon:hover {
             transform: rotate(90deg) scale(1.25);
-          }
+        }
         @keyframes slideOutLeft {
           0% {
             transform: translateX(0);
@@ -127,7 +127,7 @@ export default class Toast extends HTMLDivElement {
         ).innerHTML = `${this.toast.message}`;
         if (this.toast.status === 'error' || this.toast.status === 'warning') {
             const button = document.createElement('button');
-            button.classList.add('toast_button');
+            button.classList.add('toast__button');
             button.setAttribute('aria-label', 'close');
             const icon = document.createElement('span');
             icon.classList.add('material-symbols-outlined', 'icon');

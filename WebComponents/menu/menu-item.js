@@ -23,6 +23,7 @@ export default class MenuItem extends HTMLLIElement {
             this.appendChild(subMenu);
 
             const button = document.createElement('button');
+            button.classList.add('menu__toggle-button');
 
             const span = document.createElement('span');
             span.classList.add('visually-hidden');
@@ -75,13 +76,13 @@ export default class MenuItem extends HTMLLIElement {
         .menu__link:hover {
             text-decoration: underline;
         }
-        button {
+        .menu__toggle-button {
             all: unset;
             cursor: pointer;
             padding: 0;
             height: 19px;
         }
-        button:focus {
+        .menu__toggle-button:focus {
             outline: orange auto 5px;
         }
         .open .submenu {
