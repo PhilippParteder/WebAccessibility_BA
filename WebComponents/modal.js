@@ -72,6 +72,7 @@ export default class Modal extends HTMLElement {
         }
         .dialog_desc {
             padding: 10px 20px;
+            max-width: 80ch;
         }
         .dialog_options {
             display: flex;
