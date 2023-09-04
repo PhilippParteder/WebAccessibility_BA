@@ -37,6 +37,7 @@ export default class MenuItem extends HTMLLIElement {
 
             button.addEventListener('click', (event) => {
                 event.preventDefault();
+                this.querySelector('.menu__link').classList.add('selected');
                 const a = this.querySelector('a');
                 const label = this.querySelector('button > span');
                 if (a.getAttribute('aria-expanded') == 'true') {
@@ -73,7 +74,8 @@ export default class MenuItem extends HTMLLIElement {
             text-decoration: none;
         }
         .menu__link:focus,
-        .menu__link:hover {
+        .menu__link:hover,
+        .menu__link.selected {
             text-decoration: underline;
         }
         .menu__toggle-button {

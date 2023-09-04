@@ -52,10 +52,20 @@ export class MenuItemComponent implements AfterViewInit {
     event.preventDefault();
     if (this.link.nativeElement.getAttribute('aria-expanded') == 'true') {
       this.renderer.setStyle(this.submenu.nativeElement, 'display', 'none');
+      this.renderer.setStyle(
+        this.link.nativeElement,
+        'text-decoration',
+        'underline'
+      );
       this.link.nativeElement.setAttribute('aria-expanded', 'false');
       this.label.nativeElement.innerHTML = `hide submenu for "${this.title}"`;
     } else {
       this.renderer.setStyle(this.submenu.nativeElement, 'display', 'block');
+      this.renderer.setStyle(
+        this.link.nativeElement,
+        'text-decoration',
+        'none'
+      );
       this.link.nativeElement.setAttribute('aria-expanded', 'true');
       this.label.nativeElement.innerHTML = `show submenu for "${this.title}"`;
     }
