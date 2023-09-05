@@ -28,6 +28,17 @@ export default class Modal extends HTMLElement {
     static get observedAttributes() {
         return ['showing'];
     }
+    attributeChangedCallback(name, oldValue, newValue) {
+        this.showing = newValue;
+        if (this.showing === 'true') {
+            this.root.querySelector('dialog').showModal();
+        } else {
+            this.closeModal();
+        }
+    }
+    closeModal() {
+        this.root.querySelector('dialog').close();
+    }
     connectedCallback() {
         this.root
             .querySelector('dialog')
@@ -94,14 +105,5 @@ export default class Modal extends HTMLElement {
             background-color: #dddddd;
         }`;
         this.root.append(style);
-    }
-    attributeChangedCallback(name, oldValue, newValue) {
-        this.showing = newValue;
-        this.root.querySelector('dialog').returnValue = 'escape';
-        if (this.showing === 'true')
-            this.root.querySelector('dialog').showModal();
-    }
-    closeModal() {
-        this.root.querySelector('dialog').close();
     }
 }
