@@ -16,10 +16,7 @@ import {
         <a href="{{ href }}" #link>
           {{ title }}
         </a>
-        <button (click)="toggleSubMenu($event)" *ngIf="this.hasSubmenu">
-          <span #label class="visually-hidden"
-            >show submenu for "{{ this.title }}"</span
-          >
+        <button #button (click)="toggleSubMenu($event)" *ngIf="this.hasSubmenu">
           <mat-icon>expand_more</mat-icon>
         </button>
       </span>
@@ -36,7 +33,7 @@ export class MenuItemComponent implements AfterViewInit {
   @ViewChild('submenu') submenu!: ElementRef<HTMLElement>;
   @ViewChild('link') link!: ElementRef<HTMLElement>;
   @ViewChild('li') li!: ElementRef<HTMLElement>;
-  @ViewChild('label') label!: ElementRef<HTMLElement>;
+  @ViewChild('button') button!: ElementRef<HTMLElement>;
   @Input() hasSubmenu: boolean = false;
   timer!: ReturnType<typeof setTimeout>;
 
@@ -46,6 +43,11 @@ export class MenuItemComponent implements AfterViewInit {
     if (!this.hasSubmenu) return;
     this.renderer.setStyle(this.submenu.nativeElement, 'display', 'none');
     this.link.nativeElement.setAttribute('aria-expanded', 'false');
+    this;
+    this.button.nativeElement.setAttribute(
+      'aria-label',
+      `show submenu for "${this.title}"`
+    );
   }
 
   toggleSubMenu(event: Event): void {
@@ -58,7 +60,10 @@ export class MenuItemComponent implements AfterViewInit {
         'underline'
       );
       this.link.nativeElement.setAttribute('aria-expanded', 'false');
-      this.label.nativeElement.innerHTML = `hide submenu for "${this.title}"`;
+      this.button.nativeElement.setAttribute(
+        'aria-label',
+        `hide submenu for "${this.title}"`
+      );
     } else {
       this.renderer.setStyle(this.submenu.nativeElement, 'display', 'block');
       this.renderer.setStyle(
@@ -67,7 +72,10 @@ export class MenuItemComponent implements AfterViewInit {
         'none'
       );
       this.link.nativeElement.setAttribute('aria-expanded', 'true');
-      this.label.nativeElement.innerHTML = `show submenu for "${this.title}"`;
+      this.button.nativeElement.setAttribute(
+        'aria-label',
+        `show submenu for "${this.title}"`
+      );
     }
   }
 

@@ -24,11 +24,10 @@ export default class MenuItem extends HTMLLIElement {
 
             const button = document.createElement('button');
             button.classList.add('menu__toggle-button');
-
-            const span = document.createElement('span');
-            span.classList.add('visually-hidden');
-            span.innerHTML = `show submenu for "${this.title}"`;
-            button.appendChild(span);
+            button.setAttribute(
+                'aria-label',
+                `show submenu for "${this.title}"`
+            );
 
             const icon = document.createElement('span');
             icon.classList.add('material-symbols-outlined', 'icon');
@@ -42,11 +41,17 @@ export default class MenuItem extends HTMLLIElement {
                 const label = this.querySelector('button > span');
                 if (a.getAttribute('aria-expanded') == 'true') {
                     a.setAttribute('aria-expanded', 'false');
-                    label.innerHTML = `show submenu for "${this.title}"`;
+                    button.setAttribute(
+                        'aria-label',
+                        `show submenu for "${this.title}"`
+                    );
                     subMenu.style.display = 'none';
                 } else {
                     a.setAttribute('aria-expanded', 'true');
-                    label.innerHTML = `hide submenu for "${this.title}"`;
+                    button.setAttribute(
+                        'aria-label',
+                        `hide submenu for "${this.title}"`
+                    );
                     subMenu.style.display = 'block';
                 }
             });
