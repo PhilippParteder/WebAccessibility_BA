@@ -18,15 +18,13 @@ export default class Toaster extends HTMLElement {
             } else {
                 const oldArray = JSON.parse(oldValue);
                 const newArray = JSON.parse(newValue);
-                if (JSON.stringify(oldArray) !== JSON.stringify(newArray)) {
+                if (oldValue !== newValue) {
                     this.newToasts = [...oldArray, ...newArray].filter(
                         (item) => {
                             const itemString = JSON.stringify(item);
                             return (
-                                JSON.stringify(oldArray).indexOf(itemString) ===
-                                    -1 ||
-                                JSON.stringify(newArray).indexOf(itemString) ===
-                                    -1
+                                oldValue.indexOf(itemString) === -1 ||
+                                newValue.indexOf(itemString) === -1
                             );
                         }
                     );
@@ -52,14 +50,6 @@ export default class Toaster extends HTMLElement {
         }`;
         this.root.append(style);
     }
-    removeToast(index) {
-        this.root.querySelectorAll('my-toast').forEach((element) => {
-            if (element.index === index)
-                setTimeout(() => {
-                    element.remove();
-                }, 500);
-        });
-    }
     renderToasts(toasts) {
         if (!toasts) return;
         toasts.forEach((toast, index) => {
@@ -70,6 +60,14 @@ export default class Toaster extends HTMLElement {
                 this.removeToast(index);
             });
             this.root.querySelector('#toaster').appendChild(myToast);
+        });
+    }
+    removeToast(index) {
+        this.root.querySelectorAll('my-toast').forEach((element) => {
+            if (element.index === index)
+                setTimeout(() => {
+                    element.remove();
+                }, 500);
         });
     }
 }

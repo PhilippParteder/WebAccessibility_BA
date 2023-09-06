@@ -114,10 +114,6 @@ export default class Toast extends HTMLElement {
         }`;
         this.root.append(style);
     }
-    closeToast() {
-        this.dispatchEvent(new Event('close'));
-        this.root.querySelector('.toast').classList.add('slideOut');
-    }
     renderToast() {
         this.root
             .querySelector('.toast')
@@ -150,5 +146,9 @@ export default class Toast extends HTMLElement {
                 this.closeToast();
             }, 5000);
         }
+    }
+    closeToast() {
+        this.dispatchEvent(new Event('close'));
+        this.root.querySelector('.toast').classList.add('slideOut');
     }
 }
