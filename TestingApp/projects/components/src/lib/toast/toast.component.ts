@@ -14,7 +14,7 @@ import { Toast } from './toast.model';
       <button
         *ngIf="toast.status === 'error' || toast.status === 'warning'"
         class="toast_button"
-        aria-label="close"
+        [attr.aria-label]="'close ' + toast.status + ' notification'"
         (click)="closeToast()"
       >
         <mat-icon class="icon"> close </mat-icon>

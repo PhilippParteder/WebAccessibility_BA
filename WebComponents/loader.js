@@ -10,6 +10,6 @@ if ('customElements' in window) {
     customElements.define('my-menu-item', MenuItem, { extends: 'li' });
     customElements.define('my-menu', Menu);
     customElements.define('my-modal', Modal);
-    customElements.define('my-toast', Toast, { extends: 'div' });
+    customElements.define('my-toast', Toast);
     customElements.define('my-toaster', Toaster);
 }
