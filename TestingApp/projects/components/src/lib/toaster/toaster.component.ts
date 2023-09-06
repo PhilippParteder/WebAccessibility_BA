@@ -5,7 +5,7 @@ import { Toast } from '../toast/toast.model';
 @Component({
   selector: 'lib-toaster',
   template: `
-    <div role="alert" aria-live="polite" class="toaster" aria-atomic="true">
+    <div role="alert" aria-live="polite" class="toaster">
       <ng-container *ngIf="toasts">
         <ng-container *ngFor="let toast of toasts; let i = index">
           <lib-toast

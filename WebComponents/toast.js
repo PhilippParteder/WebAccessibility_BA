@@ -1,15 +1,17 @@
-export default class Toast extends HTMLDivElement {
+export default class Toast extends HTMLElement {
     constructor() {
         super();
-        this.innerHTML = `    
-            <div class="toast__content">
-                <p class="toast__title"></p> 
-                <p class="toast__message"></p>
+        this.root = this.attachShadow({ mode: 'closed' });
+        this.root.innerHTML = `    
+            <div class="toast">
+              <div class="toast__content">
+                  <p class="toast__title"></p>
+                  <p class="toast__message"></p>
+              </div>
             </div>`;
     }
     connectedCallback() {
         this.renderToast();
-        this.classList.add('toast');
         const style = document.createElement('style');
         style.textContent = `
         .toast {
@@ -110,33 +112,39 @@ export default class Toast extends HTMLDivElement {
             opacity: 1;
           }
         }`;
-        this.append(style);
+        this.root.append(style);
     }
     closeToast() {
         this.dispatchEvent(new Event('close'));
-        this.classList.add('slideOut');
+        this.root.querySelector('.toast').classList.add('slideOut');
     }
     renderToast() {
-        this.classList.add(`toast--${this.toast.status}`);
-        this.querySelector('.toast__title').innerHTML = `${
+        this.root
+            .querySelector('.toast')
+            .classList.add(`toast--${this.toast.status}`);
+        this.root.querySelector('.toast__title').innerHTML = `${
             this.toast.status.charAt(0).toUpperCase() +
             this.toast.status.substring(1)
         }`;
-        this.querySelector(
+        this.root.querySelector(
             '.toast__message'
         ).innerHTML = `${this.toast.message}`;
         if (this.toast.status === 'error' || this.toast.status === 'warning') {
             const button = document.createElement('button');
             button.classList.add('toast__button');
-            button.setAttribute('aria-label', 'close');
+            button.setAttribute(
+                'aria-label',
+                `close ${this.toast.status} notification`
+            );
             const icon = document.createElement('span');
             icon.classList.add('material-symbols-outlined', 'icon');
             icon.innerText = 'close';
+            icon.setAttribute('aria-hidden', 'true');
             button.appendChild(icon);
             button.addEventListener('click', () => {
                 this.closeToast();
             });
-            this.appendChild(button);
+            this.root.querySelector('.toast').appendChild(button);
         } else {
             setTimeout(() => {
                 this.closeToast();
