@@ -1,3 +1,4 @@
+import { HttpClient } from '@angular/common/http';
 import { Component } from '@angular/core';
 
 @Component({
@@ -12,11 +13,17 @@ import { Component } from '@angular/core';
       <span confirm_button>confirm</span>
     </lib-modal>
     <button (click)="this.showingModal = true">show Modal</button>
-    <lib-toaster [toasts]="toasts"></lib-toaster>
+    <!-- <lib-toaster [toasts]="toasts"></lib-toaster> -->
+    <lib-table
+      [dataset]="this.dataset"
+      [caption]="'this is a caption for my table'"
+    ></lib-table>
   `,
   styleUrls: ['./app.component.css'],
 })
 export class AppComponent {
+  dataset!: Record<string, any>[];
+  constructor(private http: HttpClient) {}
   title = 'TestingApp';
   showingModal: boolean = false;
   menuItems = [
@@ -32,16 +39,24 @@ export class AppComponent {
     { status: 'error', message: 'This is an error notification' },
   ];
 
+  ngOnInit() {
+    this.http
+      .get<Record<string, any>[]>(
+        'https://jsonplaceholder.typicode.com/comments'
+      )
+      .subscribe((data) => {
+        this.dataset = data;
+      });
+    // setTimeout(() => {
+    //     this.toasts.push({
+    //       status: 'error',
+    //       message: 'This is an error notification',
+    //     });
+    //   }, 7000);
+  }
+
   eventHandler(event: Event) {
     this.showingModal = false;
     console.log(event);
-  }
-  ngOnInit() {
-    setTimeout(() => {
-      this.toasts.push({
-        status: 'error',
-        message: 'This is an error notification',
-      });
-    }, 7000);
   }
 }
