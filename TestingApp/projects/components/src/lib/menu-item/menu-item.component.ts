@@ -43,7 +43,6 @@ export class MenuItemComponent implements AfterViewInit {
     if (!this.hasSubmenu) return;
     this.renderer.setStyle(this.submenu.nativeElement, 'display', 'none');
     this.link.nativeElement.setAttribute('aria-expanded', 'false');
-    this;
     this.button.nativeElement.setAttribute(
       'aria-label',
       `show submenu for "${this.title}"`
@@ -62,7 +61,7 @@ export class MenuItemComponent implements AfterViewInit {
       this.link.nativeElement.setAttribute('aria-expanded', 'false');
       this.button.nativeElement.setAttribute(
         'aria-label',
-        `hide submenu for "${this.title}"`
+        `show submenu for "${this.title}"`
       );
     } else {
       this.renderer.setStyle(this.submenu.nativeElement, 'display', 'block');
@@ -74,7 +73,7 @@ export class MenuItemComponent implements AfterViewInit {
       this.link.nativeElement.setAttribute('aria-expanded', 'true');
       this.button.nativeElement.setAttribute(
         'aria-label',
-        `show submenu for "${this.title}"`
+        `hide submenu for "${this.title}"`
       );
     }
   }
