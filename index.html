@@ -25,6 +25,7 @@
         </my-modal>
         <button id="modalButton">open Modal</button>
         <my-toaster></my-toaster>
+        <my-table></my-table>
     </body>
     <script>
         const menuItems = [
@@ -68,5 +69,21 @@
             });
             toaster.setAttribute('toasts', JSON.stringify(toasts));
         }, 7000);
+
+        fetch('https://jsonplaceholder.typicode.com/users')
+            .then((response) => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                return response.json();
+            })
+            .then((data) => {
+                document
+                    .querySelector('my-table')
+                    .setAttribute('dataset', JSON.stringify(data));
+            })
+            .catch((error) => {
+                console.error('Fetch error:', error);
+            });
     </script>
 </html>

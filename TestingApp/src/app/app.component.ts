@@ -41,9 +41,7 @@ export class AppComponent {
 
   ngOnInit() {
     this.http
-      .get<Record<string, any>[]>(
-        'https://jsonplaceholder.typicode.com/comments'
-      )
+      .get<Record<string, any>[]>('https://jsonplaceholder.typicode.com/users')
       .subscribe((data) => {
         this.dataset = data;
       });

@@ -4,6 +4,7 @@ import Menu from './menu/menu.js';
 import Modal from './modal.js';
 import Toast from './toast.js';
 import Toaster from './toaster.js';
+import Table from './table.js';
 
 if ('customElements' in window) {
     customElements.define('my-sub-menu', SubMenu, { extends: 'ul' });
@@ -12,4 +13,5 @@ if ('customElements' in window) {
     customElements.define('my-modal', Modal);
     customElements.define('my-toast', Toast);
     customElements.define('my-toaster', Toaster);
+    customElements.define('my-table', Table);
 }
