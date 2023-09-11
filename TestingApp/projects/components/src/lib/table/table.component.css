@@ -9,3 +9,6 @@ table {
 td {
   padding: 2px 8px;
 }
+.table-container {
+  overflow-x: auto;
+}

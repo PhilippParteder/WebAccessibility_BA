@@ -14,10 +14,7 @@ import { Component } from '@angular/core';
     </lib-modal>
     <button (click)="this.showingModal = true">show Modal</button>
     <!-- <lib-toaster [toasts]="toasts"></lib-toaster> -->
-    <lib-table
-      [dataset]="this.dataset"
-      [caption]="'this is a caption for my table'"
-    ></lib-table>
+    <lib-table [dataset]="this.dataset" [caption]="'Caption'"></lib-table>
   `,
   styleUrls: ['./app.component.css'],
 })
