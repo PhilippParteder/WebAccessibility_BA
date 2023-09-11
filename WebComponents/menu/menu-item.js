@@ -38,7 +38,6 @@ export default class MenuItem extends HTMLLIElement {
                 event.preventDefault();
                 this.querySelector('.menu__link').classList.add('selected');
                 const a = this.querySelector('a');
-                const label = this.querySelector('button > span');
                 if (a.getAttribute('aria-expanded') == 'true') {
                     a.setAttribute('aria-expanded', 'false');
                     button.setAttribute(
