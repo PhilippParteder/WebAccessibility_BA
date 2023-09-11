@@ -5,10 +5,7 @@ td {
 }
 table {
   border-collapse: collapse;
-  max-width: 80vw;
-  margin: auto;
-  margin-top: 16px;
 }
 td {
-  padding: 0px 8px;
+  padding: 2px 8px;
 }
