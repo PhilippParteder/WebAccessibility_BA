@@ -1,32 +1,41 @@
 export default class Table extends HTMLElement {
     constructor() {
         super();
-        // Creates a shadow root
         this.root = this.attachShadow({ mode: 'closed' });
     }
 
     static get observedAttributes() {
-        return ['dataset'];
+        return ['caption', 'dataset'];
     }
 
     attributeChangedCallback(name, oldValue, newValue) {
-        if (name === 'dataset' && newValue !== oldValue) {
-            console.log(JSON.parse(newValue));
+        if (
+            name === 'dataset' ||
+            (name === 'caption' && newValue !== oldValue)
+        ) {
             this.renderTable();
         }
     }
+
+    connectedCallback() {
+        this.renderTable();
+    }
+
     renderTable() {
         const caption = this.getAttribute('caption');
+        const dataset = this.getAttribute('dataset');
+
+        if (!dataset) return;
+
+        const parsedData = JSON.parse(dataset);
+        const table = document.createElement('table');
+
         if (caption) {
             const captionElement = document.createElement('caption');
             captionElement.textContent = caption;
             table.appendChild(captionElement);
         }
-        const dataset = this.getAttribute('dataset');
-        if (!dataset) return;
 
-        const parsedData = JSON.parse(dataset);
-        const table = document.createElement('table');
         parsedData.forEach((item, index) => {
             if (index === 0) {
                 const headerRow = document.createElement('tr');
@@ -51,8 +60,14 @@ export default class Table extends HTMLElement {
             }
             table.appendChild(row);
         });
+
+        const container = document.createElement('div');
+        container.classList.add('table-container');
+        container.appendChild(table);
+
         this.root.innerHTML = '';
-        this.root.appendChild(table);
+        this.root.appendChild(container);
+
         const style = document.createElement('style');
         style.textContent = `
         table,
@@ -65,7 +80,10 @@ export default class Table extends HTMLElement {
         }
         td {
           padding: 2px 8px;
+        }
+        .table-container {
+            overflow-x: auto;
         }`;
-        this.root.append(style);
+        this.root.appendChild(style);
     }
 }
