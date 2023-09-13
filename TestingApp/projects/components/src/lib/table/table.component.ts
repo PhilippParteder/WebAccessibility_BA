@@ -5,7 +5,6 @@ import {
   OnChanges,
   SimpleChanges,
 } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'lib-table',
@@ -41,17 +40,16 @@ export class TableComponent implements OnChanges {
   tableHeaders: string[] = [];
   tableKeys: string[] = [];
   tabindex: string | null = null;
-  scrollable!: boolean;
 
-  constructor(private http: HttpClient, private elementRef: ElementRef) {}
+  constructor(private elementRef: ElementRef) {}
 
   ngOnInit() {
     const container =
       this.elementRef.nativeElement.querySelector('.table-container');
     const scrollWidth = container.scrollWidth;
     const clientWidth = container.clientWidth;
-    this.scrollable = scrollWidth > clientWidth;
-    this.tabindex = this.scrollable ? '0' : null;
+    const scrollable = scrollWidth > clientWidth;
+    this.tabindex = scrollable ? '0' : null;
   }
 
   ngOnChanges(changes: SimpleChanges) {

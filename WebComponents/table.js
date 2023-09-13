@@ -13,56 +13,47 @@ export default class Table extends HTMLElement {
             name === 'dataset' ||
             (name === 'caption' && newValue !== oldValue)
         ) {
-            this.renderTable();
+            this.renderTable(JSON.parse(this.getAttribute('dataset')));
         }
     }
 
     connectedCallback() {
-        this.renderTable();
+        this.renderTable(JSON.parse(this.getAttribute('dataset')));
     }
 
-    renderTable() {
-        const caption = this.getAttribute('caption');
-        const dataset = this.getAttribute('dataset');
-
-        if (!dataset) return;
-
-        const parsedData = JSON.parse(dataset);
+    renderTable(parsedData) {
         const table = document.createElement('table');
-
-        if (caption) {
-            const captionElement = document.createElement('caption');
-            captionElement.textContent = caption;
-            table.appendChild(captionElement);
+        if (this.getAttribute('caption')) {
+            const caption = document.createElement('caption');
+            caption.innerHTML = this.getAttribute('caption');
+            caption.id = 'caption';
+            table.appendChild(caption);
         }
-
-        parsedData.forEach((item, index) => {
-            if (index === 0) {
-                const headerRow = document.createElement('tr');
-                for (const key in item) {
-                    if (item.hasOwnProperty(key)) {
+        if (parsedData) {
+            parsedData.forEach((item, index) => {
+                if (index === 0) {
+                    const headerRow = document.createElement('tr');
+                    for (const key in item) {
                         const th = document.createElement('th');
                         th.textContent = key;
                         th.setAttribute('scope', 'col');
                         headerRow.appendChild(th);
                     }
+                    table.appendChild(headerRow);
                 }
-                table.appendChild(headerRow);
-            }
-
-            const row = document.createElement('tr');
-            for (const key in item) {
-                if (item.hasOwnProperty(key)) {
+                const row = document.createElement('tr');
+                for (const key in item) {
                     const cell = document.createElement('td');
                     cell.textContent = item[key];
                     row.appendChild(cell);
                 }
-            }
-            table.appendChild(row);
-        });
+                table.appendChild(row);
+            });
+        }
 
         const container = document.createElement('div');
         container.classList.add('table-container');
+        container.setAttribute('aria-labelledby', 'caption');
         container.appendChild(table);
 
         this.root.innerHTML = '';
